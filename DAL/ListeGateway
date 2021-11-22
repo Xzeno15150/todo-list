@@ -1,0 +1,17 @@
+<?php
+
+require '../Metier/Liste.php'
+require 'Connection.php'
+/**
+ * 
+ */
+class ListeGateway
+{
+	
+	function __construct(argument)
+	{
+		// code...
+	}
+}
+
+?>
