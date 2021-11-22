@@ -1,7 +1,7 @@
 <?php
 
-require 'Tache.php';
-require '../Connection.php';
+require '../Metier/Tache.php';
+require 'Connection.php';
 
 /**
  * Gateway pour la class Tache
@@ -15,18 +15,22 @@ class TacheGateway
 		$this->con = $con;
 	}
 
-	public function createTache($tache)
+	public function createTache($tache, $idListe)
 	{
-		$query = "INSERT INTO Tache(title, descT, dateT) VALUES(:title, :descT, STR_TO_DATE(:dateT, '%d/%m/%Y'))";
+		$query = "INSERT INTO Tache(title, descT, dateT, idListe) VALUES(:title, :descT, STR_TO_DATE(:dateT, '%d/%m/%Y'), :idListe)";
 		return $con->executeQuery($query, array(
 			':title' => array($tache->getTitle(), PDO::PARAM_STR),
 			':descT' => array($tache->getDesc(), PDO::PARAM_STR),
-			':dateT' => array($tache->getDate(), PDO::PARAM_STR)
+			':dateT' => array($tache->getDate(), PDO::PARAM_STR),
+			':idListe' => array($idListe, PDO::PARAM_INT)
 		));
 	}
 
 	public function deleteTacheById($id)
 	{
-		$query = "DELETE "
+		$query = "DELETE FROM Tache WHERE id = :id"
+		return $con->executeQuery($query, array(
+			':id' => array($id, PDO::PARAM_INT)
+		));
 	}
 }
