@@ -1,5 +1,7 @@
 <?php
 
+require 'Tache.php';
+
 class Liste {
 	private $id;
 	private $nom;
