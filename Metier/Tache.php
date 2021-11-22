@@ -5,30 +5,41 @@
  */
 class Tache
 {
+	private $id;
 	private $title;
 	private $desc;
 	private $date;
 
-	public function __construct($title, $desc, $date)
+	public function __construct($id, $title, $desc, $date)
 	{
+		$this->id = $id;
 		$this->title = $title;
 		$this->desc = $desc;
 		$this->date = $date;
 	}
+	public function getId()
+	{
+		return $this->id;
+	}
 
 	public function getTitle()
 	{
-		return $title;
+		return $this->title;
 	}
 
 	public function getDesc()
 	{
-		return $desc;
+		return $this->desc;
 	}
 
 	public function getDate()
 	{
-		return $date;
+		return $this->date;
+	}
+
+	public function setTitle($id)
+	{
+		$this->id = $id;
 	}
 
 	public function setTitle($title)

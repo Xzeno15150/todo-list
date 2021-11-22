@@ -1,23 +1,35 @@
 <?php
 
 class Liste {
+	private $id;
 	private $nom;
 	private $lesTaches;
 	
-	public function __construct(string $nom)
+	public function __construct(int $id, string $nom)
 	{
+		$this->id = $id;
 		$this->nom=$nom;
-		$lesTaches=[];
+		$this->lesTaches=[];
 	}
 	
 	public function ajoutTache(Tache $tache)
 	{
-		$lesTaches[]=$tache;
+		$this->lesTaches[]=$tache;
 	}
+
+	public function setId(int $id)
+	{
+		$this->id=$id;
+	}
+	
+	public function getId()
+	{
+		return $this->id;
+	}	
 	
 	public function getNom()
 	{
-		return $nom;
+		return $this->nom;
 	}
 	
 	public function setNom(string $nom)
@@ -27,8 +39,6 @@ class Liste {
 	
 	public function getTaches()
 	{
-		return $lesTaches;
+		return $this->lesTaches;
 	}	
 }
-
-?>
