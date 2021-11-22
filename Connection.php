@@ -6,9 +6,9 @@
  * Time: 13:12
  */
 
-public class Connection extends PDO {
+class Connection extends PDO {
 
-    private string $stmt;
+    private $stmt;
 
     public function __construct(string $dsn, string $username, string $password) {
 
@@ -37,3 +37,5 @@ public class Connection extends PDO {
 
     }
 }
+
+?>
