@@ -1,7 +1,7 @@
 <?php 
 
 /**
- * 
+ * Tache 
  */
 class Tache
 {
@@ -16,5 +16,33 @@ class Tache
 		$this->date = $date;
 	}
 
+	public function getTitle()
+	{
+		return $title;
+	}
 
+	public function getDesc()
+	{
+		return $desc;
+	}
+
+	public function getDate()
+	{
+		return $date;
+	}
+
+	public function setTitle($title)
+	{
+		$this->title = $title;
+	}
+
+	public function setDesc($desc)
+	{
+		$this->desc = $desc;
+	}
+
+	public function setDate($date)
+	{
+		$this->date = $date;
+	}
 }
