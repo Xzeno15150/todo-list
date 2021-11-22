@@ -7,6 +7,6 @@
  */
 
 
-$dsn = 'mysql:host=berlin.iut.local;dbname=dbvigaillard2';
-$usr = 'vigaillard2';
-$pass = 'Xzeno15150&*';
+$dsn = 'mysql:host=berlin.iut.local;dbname=dbbamalvezin';
+$usr = 'bamalvezin';
+$pass = '1whT1wsy';
