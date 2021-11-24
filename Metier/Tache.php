@@ -37,7 +37,7 @@ class Tache
 		return $this->date;
 	}
 
-	public function setTitle($id)
+	public function setId($id)
 	{
 		$this->id = $id;
 	}

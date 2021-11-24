@@ -1,7 +1,6 @@
 <?php
 
-require '../Metier/Liste.php';
-require 'Connection.php';
+require 'Metier/Liste.php';
 /**
  * 
  */
@@ -11,7 +10,7 @@ class ListeGateway
 
 	public function __construct($con)
 	{
-		$this->con=$con
+		$this->con=$con;
 	}
 
 	public function createListe($liste)
@@ -28,5 +27,3 @@ class ListeGateway
 			':id' => array($id, PDO::PARAM_INT)));
 	}
 }
-
-?>
