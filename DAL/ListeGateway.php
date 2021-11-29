@@ -1,6 +1,6 @@
 <?php
 
-require 'Metier/Liste.php';
+require 'DAL/Metier/Liste.php';
 /**
  * 
  */
