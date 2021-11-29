@@ -7,13 +7,15 @@ class Liste {
 	private $nom;
 	private $lesTaches;
 	private $checked;
+	private $idUtil;
 	
-	public function __construct(int $id, string $nom, bool $checked)
+	public function __construct(int $id, string $nom, bool $checked, int $idUtil = NULL)
 	{
 		$this->id = $id;
 		$this->nom=$nom;
 		$this->checked = $checked;
 		$this->lesTaches=[];
+		$this->idUtil = $idUtil;
 	}
 	
 	public function ajoutTache(Tache $tache)

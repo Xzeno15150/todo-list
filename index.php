@@ -8,11 +8,9 @@ try {
 
 	$lGateway = new ListeGateway($con); 
 
-	$all_lists = array(
-		'1' => new Liste(1, "Test", false), 
-		'2' => new Liste(2, "Test 2", false));
+	$all_lists = $lGateway->getListsByPage(1, 10);
 } catch (PDOException $e) {
-	
+	echo $e;
 }
 
 require 'Views/vue_visiteur.php';
