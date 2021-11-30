@@ -13,11 +13,19 @@ class ListeGateway
 		$this->con=$con;
 	}
 
-	public function createListe($liste)
+	public function createListePublic($liste)
 	{
 		$query = "INSERT INTO Liste(nom) VALUES(:nom)";
 		return $this->con->executeQuery($query,array(
 			':nom' => array($liste->getNom(), PDO::PARAM_STR)));
+	}
+
+	public function createListePrivee($liste, $iduser)
+	{
+		$query = 'INSERT INTO Liste(nom, idUtil) VALUES (:nom, :iduser)';
+		return $this->con->executeQuery($query, array(
+			':nom' => array($liste->getNom(), PDO::PARAM_STR),
+			':iduser' => array($iduser, PDO::PARAM_INT)));
 	}
 
 	public function deleteListeById($id)

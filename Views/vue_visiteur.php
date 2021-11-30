@@ -58,7 +58,23 @@
                 </div>
             </div>
         </div>
-    <?php }}} ?>
+    <?php }}
+    if (isset($nbpages)) {
+            if($nbpages > 1) { ?>
+                <div class="container m-3 p-2rounded mx-auto shadow">
+                    <a href="#" class="btn">1</a>
+                    <?php if($page > 1) {?>
+                        <a href="#" class="btn">&lt;</a>
+                    <?php }?>
+                    <?php if($page < $nbpages) {?>
+                        <a href="#" class="btn">&gt;</a>
+                    <?php }?>
+                    <a href="#" class="btn"><?php echo $nbpages?></a>
+                </div>
+    <?php   }
+    }}?>
+
+    
 
     <div class="container m-3 p-2 rounded mx-auto shadow">
         <div class="row m-1 p-4">
@@ -106,6 +122,20 @@
         </div>
         <?php }} ?>
     </div>
+    <?php if (isset($nbpages)) {
+            if($nbpages > 1) { ?>
+                <div class="container m-3 p-2rounded mx-auto shadow">
+                    <a href="#" class="btn">1</a>
+                    <?php if($page > 1) {?>
+                        <a href="#" class="btn">&lt;</a>
+                    <?php }?>
+                    <?php if($page < $nbpages) {?>
+                        <a href="#" class="btn">&gt;</a>
+                    <?php }?>
+                    <a href="#" class="btn"><?php echo $nbpages?></a>
+                </div>
+    <?php   }
+    }?>
 
 
 </body>

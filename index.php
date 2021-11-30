@@ -9,8 +9,14 @@ try {
 	$lGateway = new ListeGateway($con); 
 
 	$all_lists = $lGateway->getListsByPage(1, 10);
+
+	$nbpages = 10;
+	$page = 2;
+	$user_connected = 'te';
 } catch (PDOException $e) {
-	echo $e;
+	$dVueEreur = $e;
+	require 'Views/vue_erreur.php';
+
 }
 
 require 'Views/vue_visiteur.php';
