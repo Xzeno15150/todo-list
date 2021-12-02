@@ -3,7 +3,7 @@
 /**
  * 
  */
-public class Validation
+class Validation
 {
 	
 	public static function validationMail(string $email) : string
@@ -13,10 +13,14 @@ public class Validation
 		}
 	}
 
-	public static function validationString(string $text) : string
+	public static function validationPage(int $page, int $nbpages) : int
 	{
-		if (isset($text)) {
-			return filter_var()
+		if (isset($page)) {
+			$page = filter_var($page, FILTER_VALIDATE_INT);
+			if ($page <= 0 || $page > $nbpages) {
+				return 1;
+			}
+			return $page;
 		}
 	}
 }

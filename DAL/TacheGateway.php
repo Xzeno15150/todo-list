@@ -18,7 +18,7 @@ class TacheGateway
 	public function createTache($tache, $idListe)
 	{
 		$query = "INSERT INTO Tache(title, descT, dateT, idListe) VALUES(:title, :descT, STR_TO_DATE(:dateT, '%d/%m/%Y'), :idListe)";
-		return $con->executeQuery($query, array(
+		return $this->con->executeQuery($query, array(
 			':title' => array($tache->getTitle(), PDO::PARAM_STR),
 			':descT' => array($tache->getDesc(), PDO::PARAM_STR),
 			':dateT' => array($tache->getDate(), PDO::PARAM_STR),
@@ -29,7 +29,7 @@ class TacheGateway
 	public function deleteTacheById($id)
 	{
 		$query = "DELETE FROM Tache WHERE id = :id"
-		return $con->executeQuery($query, array(
+		return $this->con->executeQuery($query, array(
 			':id' => array($id, PDO::PARAM_INT)
 		));
 	}

@@ -35,12 +35,11 @@
         </div>
         <div class="p-2 mx-4 border-black-25 border-top"></div>
 
-        <?php if (isset($all_lists)) { foreach ($all_lists as $liste) {?>
+        <?php if (isset($private_lists)) { foreach ($private_lists as $liste) {?>
         <div class="row px-3 align-items-center rounded ">
             <div class="col-auto m-1 p-0 d-flex align-items-center">
                 <h2 class="m-0 p-0">
-                    <i class="far fa-square text-primary btn m-0 p-0" title="Marqué Terminée"></i>
-                    <i class="far fa-check-square text-primary btn m-0 p-0 d-none" title="Marqué Non-Terminée"></i>
+                    <input type="checkbox" name="listeDonePrivee">
                 </h2>
             </div>
             <div class="col px-1 m-1 ml-3 d-flex align-items-center">
@@ -59,17 +58,18 @@
             </div>
         </div>
     <?php }}
-    if (isset($nbpages)) {
-            if($nbpages > 1) { ?>
+    if (isset($nbpagesprivees)) {
+            if($nbpagesprivees > 1) { ?>
                 <div class="container m-3 p-2rounded mx-auto shadow">
                     <a href="#" class="btn">1</a>
-                    <?php if($page > 1) {?>
+                    <?php if($pagePrivee > 1) {?>
                         <a href="#" class="btn">&lt;</a>
                     <?php }?>
-                    <?php if($page < $nbpages) {?>
+                    <span class="text-primary">...</span>
+                    <?php if($pagePrivee < $nbpagesprivees-1) {?>
                         <a href="#" class="btn">&gt;</a>
                     <?php }?>
-                    <a href="#" class="btn"><?php echo $nbpages?></a>
+                    <a href="#" class="btn"><?php echo $nbpagesprivees?></a>
                 </div>
     <?php   }
     }}?>
@@ -101,8 +101,7 @@
         <div class="row px-3 align-items-center rounded ">
             <div class="col-auto m-1 p-0 d-flex align-items-center">
                 <h2 class="m-0 p-0">
-                    <i class="far fa-square text-primary btn m-0 p-0" title="Marqué Terminée"></i>
-                    <i class="far fa-check-square text-primary btn m-0 p-0 d-none" title="Marqué Non-Terminée"></i>
+                    <input type="checkbox" name="listeDonePublic">
                 </h2>
             </div>
             <div class="col px-1 m-1 ml-3 d-flex align-items-center">
@@ -122,17 +121,18 @@
         </div>
         <?php }} ?>
     </div>
-    <?php if (isset($nbpages)) {
-            if($nbpages > 1) { ?>
+    <?php if (isset($nbpagespublics)) {
+            if($nbpagespublics > 1) { ?>
                 <div class="container m-3 p-2rounded mx-auto shadow">
                     <a href="#" class="btn">1</a>
-                    <?php if($page > 1) {?>
+                    <?php if($pagePublic > 1) {?>
                         <a href="#" class="btn">&lt;</a>
                     <?php }?>
-                    <?php if($page < $nbpages) {?>
+                    <span class="text-primary">...</span>
+                    <?php if($pagePublic < $nbpagespublics-1) {?>
                         <a href="#" class="btn">&gt;</a>
                     <?php }?>
-                    <a href="#" class="btn"><?php echo $nbpages?></a>
+                    <a href="#" class="btn"><?php echo $nbpagespublics?></a>
                 </div>
     <?php   }
     }?>
