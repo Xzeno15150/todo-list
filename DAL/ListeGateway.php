@@ -51,7 +51,7 @@ class ListeGateway
 		return $tab;
 	}
 
-	public function getListsByIDUserByPage($page, $nbparpages, $user) {
+	public function getListsByUserByPage($page, $nbparpages, $user) {
 		$premierepage = ($page-1)*$nbparpages;
 		$query = "SELECT * FROM Liste  WHERE idUtil = :idutil LIMIT :premierepage, :nbparpages";
 		$this->con->executeQuery($query, array(

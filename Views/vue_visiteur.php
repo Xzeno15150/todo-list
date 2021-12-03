@@ -61,15 +61,15 @@
     if (isset($nbpagesprivees)) {
             if($nbpagesprivees > 1) { ?>
                 <div class="container m-3 p-2rounded mx-auto shadow">
-                    <a href="#" class="btn">1</a>
-                    <?php if($pagePrivee > 1) {?>
-                        <a href="#" class="btn">&lt;</a>
+                    <a href="index.php?pagePrivee=1&pagePublic=<?php echo $pagePublic ?>" class="btn">1</a>
+                    <?php if($pagePrivee > 2) {?>
+                        <a href="index.php?pagePrivee=<?php echo $pagePrivee-1 ?>&pagePublic=<?php echo $pagePublic ?>" class="btn">&lt;</a>
                     <?php }?>
                     <span class="text-primary">...</span>
                     <?php if($pagePrivee < $nbpagesprivees-1) {?>
-                        <a href="#" class="btn">&gt;</a>
+                        <a href="index.php?pagePrivee=<?php echo $pagePrivee+1 ?>&pagePublic=<?php echo $pagePublic?>" class="btn">&gt;</a>
                     <?php }?>
-                    <a href="#" class="btn"><?php echo $nbpagesprivees?></a>
+                    <a href="index.php?pagePrivee=<?php echo $nbpagesprivees ?>&pagePublic=<?php echo $pagePublic ?>" class="btn"><?php echo $nbpagesprivees?></a>
                 </div>
     <?php   }
     }}?>
@@ -124,15 +124,15 @@
     <?php if (isset($nbpagespublics)) {
             if($nbpagespublics > 1) { ?>
                 <div class="container m-3 p-2rounded mx-auto shadow">
-                    <a href="#" class="btn">1</a>
-                    <?php if($pagePublic > 1) {?>
-                        <a href="#" class="btn">&lt;</a>
+                    <a href="index.php?pagePublic=1&pagePrivee=<?php echo $pagePrivee ?>" class="btn">1</a>
+                    <?php if($pagePublic > 2) {?>
+                        <a href="index.php?pagePublic=<?php echo $pagePublic-1 ?>&pagePrivee=<?php echo $pagePrivee ?>" class="btn">&lt;</a>
                     <?php }?>
                     <span class="text-primary">...</span>
                     <?php if($pagePublic < $nbpagespublics-1) {?>
-                        <a href="#" class="btn">&gt;</a>
+                        <a href="index.php?pagePublic=<?php echo $pagePublic+1 ?>&pagePrivee=<?php echo $pagePrivee ?>" class="btn">&gt;</a>
                     <?php }?>
-                    <a href="#" class="btn"><?php echo $nbpagespublics?></a>
+                    <a href="index.php?pagePublic=<?php echo $nbpagespublics?>&pagePrivee=<?php echo $pagePrivee ?>" class="btn"><?php echo $nbpagespublics?></a>
                 </div>
     <?php   }
     }?>

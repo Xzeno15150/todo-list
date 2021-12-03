@@ -1,14 +1,4 @@
 body {
     font-family: "Open Sans", sans-serif;
     line-height: 1.6;
-    min-height: 100vh;
-}
-
-main{
-    display: flex;
-    flex-wrap: nowrap;
-    height: 100vh;
-    max-height: 100vh;
-    overflow-x: auto;
-    overflow-y: hidden;
 }
