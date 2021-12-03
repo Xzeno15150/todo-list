@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="mr-auto">
-                <a class="nav-link active" aria-current="page" href="index.php">
+                <a class="nav-link active" aria-current="page" href="index.php?pagePrivee=<?php echo $pagePrivee ?>&pagePublic=<?php echo $pagePublic ?>">
                     <i class="fas fa-home mr-3"></i>
                 </a>
             </div>

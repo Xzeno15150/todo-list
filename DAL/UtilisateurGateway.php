@@ -1,6 +1,5 @@
 <?php 
 
-require 'DAL/Metier/Connection.php';
 
 class UtilisateurGateway
 {

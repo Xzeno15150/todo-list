@@ -1,7 +1,5 @@
 <?php
 
-require 'DAL/Metier/Tache.php';
-require 'DAL/Connection.php';
 
 /**
  * Gateway pour la class Tache

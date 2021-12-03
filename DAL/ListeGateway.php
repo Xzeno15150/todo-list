@@ -1,6 +1,5 @@
 <?php
 
-require 'DAL/Metier/Liste.php';
 /**
  * 
  */

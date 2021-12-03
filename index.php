@@ -1,11 +1,6 @@
 <?php
-require 'Utils/utils.php';
-require 'DAL/Connection.php';
-require 'DAL/ListeGateway.php';
-require 'DAL/Metier/Utilisateur.php';
-require 'Utils/Validation.php';
 
-try {
+/*try {
 	$con = new Connection($dsn, $usr, $pass);
 
 	$lGateway = new ListeGateway($con);
@@ -27,11 +22,14 @@ try {
 	$dVueEreur[] = $e;
 	require 'Views/vue_erreur.php';
 	exit(1);
-}
+}*/
+
+require_once(__DIR__."/Config/config")
+require_once(__DIR__."/Config/Autoloader.php");
 
 
-require 'Views/vue_liste.php';
-//require 'Views/vue_visiteur.php';
+//require 'Views/vue_liste.php';
+require 'Views/vue_visiteur.php';
 
 
 

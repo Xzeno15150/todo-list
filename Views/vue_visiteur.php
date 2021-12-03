@@ -26,8 +26,8 @@
         <div class="row m-1 p-3">
             <div class="col col-11 mx-auto">
                 <div class="row bg-white rounded shadow-sm p-2 add-todo-wrapper align-items-center justify-content-center">
-                    <form method="post" class="d-flex col">
-                        <input class="form-control form-control-lg border-1 add-todo-input bg-transparent rounded mr-3" type="text" placeholder="Ajouter une nouvelle liste.." name="nomListe">
+                    <form method="post" class="d-flex col" action="index.php?action=creerListePriv">
+                        <input class="form-control form-control-lg border-1 add-todo-input bg-transparent rounded mr-3" type="text" placeholder="Ajouter une nouvelle liste.." name="nomListePriv">
                         <button type="button" class="btn btn-primary" type="submit">Nouvelle Liste</button>
                     </form>
                 </div>
