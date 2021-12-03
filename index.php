@@ -24,7 +24,7 @@
 	exit(1);
 }*/
 
-require_once(__DIR__."/Config/config")
+require_once(__DIR__."/Config/config.php");
 require_once(__DIR__."/Config/Autoloader.php");
 
 

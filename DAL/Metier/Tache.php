@@ -11,7 +11,7 @@ class Tache
 	private $date;
 	private $checked;
 
-	public function __construct($id, $title, $desc, $date, $checked)
+	public function __construct($title, $desc, $date, $id=NULL, $checked=0)
 	{
 		$this->id = $id;
 		$this->title = $title;
