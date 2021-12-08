@@ -32,6 +32,7 @@ class VisiteurController
 					break;
 
 				default:
+					throw new Exception("Action inexistante", 1);
 					
 					break;
 			}	
@@ -66,16 +67,23 @@ class VisiteurController
 	{
 		$nomTache = $_POST['nomTache'];
 		$descTache = $_POST['descTache'];
+		$idListe = $_POST['idListe'];
 		$nomTache = Nettoyer::NettoyerString($nomTache);
 		$descTache = Nettoyer::NettoyerString($descTache);
 		$tache = new Tache ($nomTache,$descTache,date());
+		$con = new Connection($dsn, $username, $password);
+		$lt = new ListeTache($con);
+		$tache = new Tache($nomTache,$descTache,date());
+		$lt->creerTache($tache,$idListe);	
 	}
 
 	public function supListe()
 	{
 		$idListe=$_POST['idList'];
-		
+		$con = new Connection($dsn, $username, $password);
+		$lg = new ListeGateway($con);
+		$lg->deleteListeById($idListe);
+
 	}
 }
-
 ?>

@@ -97,4 +97,10 @@ class ListeGateway
 		$row = $res[0];
 		return new Liste($row['nom'], $row['id'], $row['checked'], $row['idUtil']);
 	}
+
+	public function checkListById($id)
+	{
+		$query = "UPDATE Liste SET checked = 1-checked WHERE id = :id";
+		$this->con->executeQuery($query,array(':id' => array($id,PDO::PARAM_INT)));
+	}
 }

@@ -30,5 +30,11 @@ class TacheGateway
 		return $this->con->executeQuery($query, array(
 			':id' => array($id, PDO::PARAM_INT)
 		));
+
+	}
+	public function checkTacheById($id)
+	{
+		$query = "UPDATE Tache SET checked = 1-checked WHERE id = :id";
+		$this->con->executeQuery($query,array(':id' => array($id,PDO::PARAM_INT)));
 	}
 }
