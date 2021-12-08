@@ -1,8 +1,6 @@
 <?php
 
-/**
- * 
- */
+
 class ListeGateway
 {
 	private $con;

@@ -1,12 +1,5 @@
 <?php
 
-require 'Utils/utils.php'
-require 'Utils/Nettoyer.php'
-require 'DAL/ListeGateway.php'
-
-/**
- * 
- */
 class VisiteurController
 {	
 	
@@ -15,6 +8,9 @@ class VisiteurController
 		try {
 			$action=$_REQUEST['action']
 			switch ($action) {
+				case 'afficherListes' :
+					$this->afficherListes();
+					break;
 				case 'creerListePub':
 					$this->creerListePub();
 					break;
@@ -45,6 +41,10 @@ class VisiteurController
 			exit(1);		
 		}
 
+	}
+	public function afficherListes()
+	{
+		
 	}
 
 	public function creerListePub()

@@ -12,24 +12,28 @@
 </head>
 <body>
 	<?php require 'Views/header.php' ?>
-		<div class="d-inline-flex vh-100">
-				<div class="d-flex flex-column flex-shrink-0 p-3 text-dark vh-100" style="width: 280px;">
+	<main>
+		<div class="row">
+			<div class="col">
+				<div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark vh-100" style="width: 280px;">
 					<div class="h2">
 						<i class="fas fa-clipboard-list"></i>
-						<?php echo $current_liste->getNom(); ?>
+						<?php echo $current_liste->getNom();?>
 					</div>
 
 			        <div class="p-2 mx-2 border-black border-top"></div>
 					<hr>
-					<a href="#" class="btn btn-primary my-auto">
+					<a href="#" class="btn btn-primary">
 						<i class="fas fa-plus-circle"></i>
 						Nouvelle Tâche
 					</a>
 					<hr>
 					<?php foreach ($current_liste->getTaches() as $tache) { ?>
-						<input class="btn btn-outline-dark" type="button" name="tacheSelected" value="<?php echo $tache->getTitle(); ?>">
+						<input class="btn btn-outline-light" type="button" name="tacheSelected" value="<?php echo $tache->getTitle(); ?>">
 					<?php } ?>
 				</div>
+			</div>
+			<div class="col">
 				<?php if (isset($current_tache)) { ?>
 					<div class="d-flex flex-shrink-0 p-2">
 						<div class="h3 text-Dark">
@@ -41,6 +45,10 @@
 						</div>
 					</div>
 				<?php  } ?>
+			</div>
 		</div>
+		
+	</main>
+	
 </body>
 </html>
