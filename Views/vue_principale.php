@@ -97,7 +97,7 @@
         </div>
         <div class="p-2 mx-4 border-black-25 border-top"></div>
 
-        <?php if(isset($all_lists)) { foreach ($all_lists as $liste) {?>
+        <?php if(isset($public_lists)) { foreach ($public_lists as $liste) {?>
         <div class="row px-3 align-items-center rounded ">
             <div class="col-auto m-1 p-0 d-flex align-items-center">
                 <h2 class="m-0 p-0">

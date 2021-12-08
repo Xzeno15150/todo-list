@@ -20,7 +20,7 @@ class VisiteurController
 					break;
 
 				case 'supListe':
-					
+					$this->supListe();
 					break;
 
 				case 'checkListe':
@@ -44,7 +44,12 @@ class VisiteurController
 	}
 	public function afficherListes()
 	{
-		
+		$page=$_GET['page'];
+		$page=Validation::validationPage($page,$nbListByPage);
+		$con = new Connection($dsn, $username, $password);
+		$lg = new ListeGateway($con);
+		$public_lists=$lg->getListsByPage($page,$nbListByPage);
+		require_once('vue_principale.php');
 	}
 
 	public function creerListePub()
@@ -64,6 +69,12 @@ class VisiteurController
 		$nomTache = Nettoyer::NettoyerString($nomTache);
 		$descTache = Nettoyer::NettoyerString($descTache);
 		$tache = new Tache ($nomTache,$descTache,date());
+	}
+
+	public function supListe()
+	{
+		$idListe=$_POST['idList'];
+		
 	}
 }
 
