@@ -8,7 +8,7 @@ class Liste {
 	private $checked;
 	private $idUtil;
 	
-	public function __construct( string $nom, int $id=NULL, int $checked=0, int $idUtil = NULL)
+	public function __construct(string $nom, ?int $id, int $checked=0, ?int $idUtil)
 	{
 		$this->id = $id;
 		$this->nom=$nom;
@@ -51,8 +51,13 @@ class Liste {
 		$this->checked = $checked;
 	}
 	
-	public function getChecked()
+	public function isChecked()
 	{
 		return $this->checked;
 	}	
+
+	public function getIdUtil()
+	{
+		return $this->idUtil;
+	}
 }

@@ -5,7 +5,6 @@ class UtilisateurController extends VisiteurController
 	
 	public function __construct()
 	{
-		parent::__construct($action);
 		switch ($action) {
 			case 'creerListePriv':
 				$this->creerListePrivee();
@@ -17,7 +16,7 @@ class UtilisateurController extends VisiteurController
 				// code...
 				break;
 			default:
-				// code...
+				parent::__construct($action);
 				break;
 		}
 	}
@@ -30,7 +29,7 @@ class UtilisateurController extends VisiteurController
 		$con = new Connection($dsn, $usr, $pass);
 		$lg = new ListeGateway($con);
 
-		$l = new Liste();
-
+		$liste = new Liste($nom, null, 0, $user_connected->getId());
+		$lg->creerListePrivee($liste);
 	}
 }
