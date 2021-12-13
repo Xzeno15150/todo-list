@@ -1,10 +1,11 @@
 <?php 
 
-class UtilisateurController extends VisiteurController
+class UtilisateurController
 {
 	
 	public function __construct()
 	{
+		$action = $_REQUEST['action'];
 		switch ($action) {
 			case 'creerListePriv':
 				$this->creerListePrivee();
@@ -16,20 +17,22 @@ class UtilisateurController extends VisiteurController
 				// code...
 				break;
 			default:
-				parent::__construct($action);
+				new VisiteurController();
 				break;
 		}
 	}
 
 	public function creerListePrivee()
 	{
-		$nom = $_POST['nomListePriv'];
-		$nom = Nettoyer::NettoyerString($nom);
-
-		$con = new Connection($dsn, $usr, $pass);
-		$lg = new ListeGateway($con);
-
-		$liste = new Liste($nom, null, 0, $user_connected->getId());
-		$lg->creerListePrivee($liste);
+		if (isset($_POST['nomListePriv'])) {
+			$nom = $_POST['nomListePriv'];
+			$nom = Nettoyer::NettoyerString($nom);
+	
+			$con = new Connection($dsn, $usr, $pass);
+			$lg = new ListeGateway($con);
+	
+			$liste = new Liste($nom, null, 0, $user_connected->getId());
+			$lg->creerListePrivee($liste);
+		}
 	}
 }

@@ -12,7 +12,7 @@
 </head>
 <body>
 
-	<form class="container m-3 p-2 rounded mx-auto shadow" action="../index.php">
+	<form class="container m-3 p-2 rounded mx-auto shadow" action="../index.php?action=afficherListes?pagePrivee=<?php echo $pagePrivee; ?>&pagePublic=<?php echo $pagePublic; ?>">
 		<div class="form-group">
 		    <label for="inputEmail">Adresse Email</label>
 		    <input type="email" class="form-control" id="inputEmail" placeholder="Entrez un email...">

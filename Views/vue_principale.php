@@ -11,7 +11,6 @@
     <script src="https://kit.fontawesome.com/753235255d.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <?php require 'Views/header.php' ?>
 
     <?php if(isset($user_connected)) { ?>
         <div class="container m-3 p-2 rounded mx-auto shadow">
@@ -28,7 +27,7 @@
                 <div class="row bg-white rounded shadow-sm p-2 add-todo-wrapper align-items-center justify-content-center">
                     <form method="post" class="d-flex col" action="index.php?action=creerListePriv">
                         <input class="form-control form-control-lg border-1 add-todo-input bg-transparent rounded mr-3" type="text" placeholder="Ajouter une nouvelle liste.." name="nomListePriv">
-                        <button type="button" class="btn btn-primary" type="submit">Nouvelle Liste</button>
+                        <button type="submit" class="btn btn-primary">Nouvelle Liste</button>
                     </form>
                 </div>
             </div>
@@ -109,16 +108,17 @@
         <div class="row m-1 p-3">
             <div class="col col-11 mx-auto">
                 <div class="row bg-white rounded shadow-sm p-2 add-todo-wrapper align-items-center justify-content-center">
-                    <form method="post" class="d-flex col">
+                    <form method="post" class="d-flex col" action="index.php?action=creerListePub">
                         <input class="form-control form-control-lg border-1 add-todo-input bg-transparent rounded mr-3" type="text" placeholder="Ajouter une nouvelle liste.." name="nomListePub">
-                        <button type="button" class="btn btn-primary" type="submit">Nouvelle Liste</button>
+                        <button type="submit" class="btn btn-primary">Nouvelle Liste</button>
                     </form>
                 </div>
             </div>
         </div>
         <div class="p-2 mx-4 border-black-25 border-top"></div>
 
-        <?php if(isset($public_lists)) { foreach ($public_lists as $liste) {?>
+        <?php if(isset($public_lists)) { 
+            foreach ($public_lists as $liste) {?>
         <div class="row px-3 align-items-center rounded ">
             <div class="col-auto m-1 p-0 d-flex align-items-center">
                 <?php if ($liste->isChecked()) {

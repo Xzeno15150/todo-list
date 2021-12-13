@@ -6,7 +6,7 @@ class VisiteurController
 	public function __construct()
 	{
 		try {
-			$action=$_REQUEST['action']
+			$action=$_REQUEST['action']; 
 			switch ($action) {
 				case 'afficherListes' :
 					$this->afficherListes();
@@ -33,9 +33,8 @@ class VisiteurController
 
 				default:
 					throw new Exception("Action inexistante", 1);
-					
-					break;
-			}	
+			}
+
 		} catch (Exception $e) {
 			$dVueEreur[] = $e;
 			require 'Views/vue_erreur.php';
@@ -45,44 +44,60 @@ class VisiteurController
 	}
 	public function afficherListes()
 	{
-		$page=$_GET['page'];
-		$page=Validation::validationPage($page,$nbListByPage);
-		$con = new Connection($dsn, $username, $password);
-		$lg = new ListeGateway($con);
-		$public_lists=$lg->getListsByPage($page,$nbListByPage);
-		require_once('vue_principale.php');
+		if (isset($_GET['pagePublic'])) 
+		{
+			$pagePublic = $_GET['pagePublic'];
+			$nbpagespublics = ModelVisiteur::getNbPagesPublics();
+			$pagePublic = Validation::validationPage($pagePublic,$nbpagespublics);
+			$public_lists = ModelVisiteur::getListsPubliques($pagePublic);
+
+			if (isset($user_connected) and isset($_GET['pagePrivee'])) 
+			{
+				$pagePrivee = $_GET['pagePrivee'];
+				$nbpagesprivees = ModelVisiteur::getNbPagesPrivees($user_connected);
+				$pagePrivee = Validation::validationPage($pagePrivee, $nbpagesprivees);
+				$private_lists = ModelVisiteur::getListsPrivee($pagePrivee, $user_connected);	
+			}
+
+			require_once __DIR__.'/../Views/header.php';
+			require_once(__DIR__.'/../Views/vue_principale.php');
+		}
 	}
 
 	public function creerListePub()
 	{
-		$nomListe = $_POST['nomListePub'];
-		$nomListe = Nettoyer::NettoyerString($nomListe);
-		$liste = new Liste($nomListe);
-		$con = new Connection($dsn, $username, $password);
-		$lg = new ListeGateway($con);
-		$lg->createListePublic($liste);
+		if(isset($_POST['nomListePub']))
+		{
+			$nomListe = $_POST['nomListePub'];
+			$nomListe = Nettoyer::NettoyerString($nomListe);
+			$liste = new Liste($nomListe);
+			ModelVisiteur::addListePub($liste);
+			$this->afficherListes();è
+		}
 	}
 
 	public function creerTache()
 	{
-		$nomTache = $_POST['nomTache'];
-		$descTache = $_POST['descTache'];
-		$idListe = $_POST['idListe'];
-		$nomTache = Nettoyer::NettoyerString($nomTache);
-		$descTache = Nettoyer::NettoyerString($descTache);
-		$tache = new Tache ($nomTache,$descTache,date());
-		$con = new Connection($dsn, $username, $password);
-		$lt = new ListeTache($con);
-		$tache = new Tache($nomTache,$descTache,date());
-		$lt->creerTache($tache,$idListe);	
+		if (isset($_POST['nomTache']) and isset($_POST['descTache']) and isset($_POST['idListe'])) {
+			$nomTache = $_POST['nomTache'];
+			$descTache = $_POST['descTache'];
+			$idListe = $_POST['idListe'];
+			$nomTache = Nettoyer::NettoyerString($nomTache);
+			$descTache = Nettoyer::NettoyerString($descTache);
+
+			$tache = new Tache ($nomTache,$descTache,date());
+
+			ModelVisiteur::addTacheToListe($tache, $idListe);
+		}
 	}
 
 	public function supListe()
 	{
-		$idListe=$_POST['idList'];
-		$con = new Connection($dsn, $username, $password);
-		$lg = new ListeGateway($con);
-		$lg->deleteListeById($idListe);
+		if (isset($_POST['idList'])) 
+		{
+			$idListe=$_POST['idList'];
+			ModelVisiteur::removeListe($idListe);
+		}
 
 	}
 }

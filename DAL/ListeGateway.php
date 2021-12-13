@@ -43,7 +43,7 @@ class ListeGateway
 		$res = $this->con->getResults();
 		$tab = [];
 		foreach ($res as $row) {
-			$tab[] = new Liste($row['nom'], $row['id'], $row['checked']);
+			$tab[] = new Liste($row['nom'], $row['id'], $row['checked'], $row['idUtil']);
 		}
 		return $tab;
 	}
@@ -59,7 +59,7 @@ class ListeGateway
 		$res = $this->con->getResults();
 		$tab = [];
 		foreach ($res as $row) {
-			$tab[] = new Liste($row['nom'], $row['id'], $row['checked']);
+			$tab[] = new Liste($row['nom'], $row['id'], $row['checked'], $row['idUtil']);
 		}
 		return ($tab);
 	}
