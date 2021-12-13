@@ -1,6 +1,5 @@
 <?php 
 
-
 class UtilisateurGateway
 {
 	private $con;
@@ -18,8 +17,36 @@ class UtilisateurGateway
 
 		$res = $this->con->getResults();
 		$tab = [];
-		foreach ($tab as $row) {
-			$tab[] = new Utilisateur($row['id'], $row['pseudo'], $row['mdp']);
+		foreach ($res as $row) {
+			$tab[] = new Utilisateur($row['id'], $row['pseudo']);
+		}
+		return $tab;
+	}
+
+	public function getUserByPseudo($pseudo)
+	{
+		query = 'SELECT * FROM Utilisateur WHERE pseudo = :pseudo';
+		$this->con->executeQuery($query, array(
+			":pseudo" => array($id, PDO::PARAM_STR)));
+
+		$res = $this->con->getResults();
+		$tab = [];
+		foreach ($res as $row) {
+			$tab[] = new Utilisateur($row['id'], $row['pseudo']);
+		}
+		return $tab;
+	}
+
+	public function getMdpByPseudo (string $pseudo)
+	{
+		$query = 'SELECT mdp FROM Utilisateur WHERE pseudo = :pseudo';
+		$this->con->executeQuery($query, array(
+			":pseudo" => array($id, PDO::PARAM_STR)));
+
+		$res = $this->con->getResults();
+		$tab = [];
+		foreach ($res as $row) {
+			$tab[] = $row['mdp'];
 		}
 		return $tab;
 	}

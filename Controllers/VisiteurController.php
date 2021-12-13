@@ -30,10 +30,17 @@ class VisiteurController
 				case 'checkTache':
 					
 					break;
+
+				case 'connecter':
+
+					break;
+
+				case 'inscription':
+
+					break;
 				case null :
 					$this->afficherListes();
 					break;
-					
 				default:
 					throw new Exception("Action inexistante", 1);
 			}
