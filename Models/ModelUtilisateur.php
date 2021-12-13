@@ -6,7 +6,7 @@
 class ModelUtilisateur
 {
 
-	public function creerUtil($pseudo,$mdp)
+	public static function creerUtil($pseudo,$mdp)
 	{
 		$pseudo = Nettoyage::NettoyerString($pseudo);
 		$mdp = Nettoyage::NettoyerString($mdp);
@@ -15,7 +15,7 @@ class ModelUtilisateur
 		$gw->createUtilisateur($pseudo,$mdp);
 	}
 
-	public function connection($pseudo,$mdp)
+	public static function connection($pseudo,$mdp)
 	{
 		$pseudo = Nettoyage::NettoyerString($pseudo);
 		$mdp = Nettoyage::NettoyerString($mdp);
@@ -36,14 +36,14 @@ class ModelUtilisateur
 		}
 	}
 
-	public function deconnection()
+	public static function deconnection()
 	{
 		session_unset();
 		session_destroy();
 		$_SESSION = array();	
 	}
 	
-	public function isUser()
+	public static function isUser()
 	{
 		if (isset($_SESSION['pseudo']) && isset($_SESSION['role']))
 		{
