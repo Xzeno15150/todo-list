@@ -3,19 +3,20 @@
 class UtilisateurController
 {
 	
-	public function __construct()
+	public function __construct($action)
 	{
-		$action = $_REQUEST['action'];
 		switch ($action) {
+
 			case 'creerListePriv':
 				$this->creerListePrivee();
 				break;
 			
 			case 'deconnecter':
-				// code...
+				$this->deconnecter();
 				break;
+
 			default:
-				new VisiteurController();
+				throw new Exception("Action inexistante", 1);
 				break;
 		}
 	}
@@ -32,5 +33,10 @@ class UtilisateurController
 			$liste = new Liste($nom, null, 0, $user_connected->getId());
 			$lg->creerListePrivee($liste);
 		}
+	}
+
+	public function deconnecter()
+	{
+		ModelUtilisateur::deconnection();
 	}
 }

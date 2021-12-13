@@ -3,10 +3,9 @@
 class VisiteurController
 {	
 	
-	public function __construct()
+	public function __construct($action)
 	{
 		try {
-			$action=$_REQUEST['action']; 
 			switch ($action) {
 				case 'afficherListes' :
 					$this->afficherListes();
@@ -38,9 +37,8 @@ class VisiteurController
 				case 'inscription':
 
 					break;
-				case null :
-					$this->afficherListes();
-					break;
+
+
 				default:
 					throw new Exception("Action inexistante", 1);
 			}

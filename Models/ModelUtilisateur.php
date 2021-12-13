@@ -11,7 +11,7 @@ class ModelUtilisateur
 		$pseudo = Nettoyage::NettoyerString($pseudo);
 		$mdp = Nettoyage::NettoyerString($mdp);
 		$gw = new UtilisateurGateway(new Connection($dsn,$username,$password));
-		$hash =	password_hash($mdp, PASSWORD_DEFAULT)
+		$hash =	password_hash($mdp, PASSWORD_DEFAULT);
 		$gw->createUtilisateur($pseudo,$mdp);
 	}
 
