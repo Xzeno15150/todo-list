@@ -7,7 +7,7 @@ class VisiteurController
 	{
 		try {
 			switch ($action) {
-				case 'afficherListes' :
+				case 'afficherListes':
 					$this->afficherListes();
 					break;
 				case 'creerListePub':
@@ -31,7 +31,7 @@ class VisiteurController
 					break;
 
 				case 'connecter':
-
+					$this->connecter();
 					break;
 
 				case 'inscription':
@@ -55,21 +55,31 @@ class VisiteurController
 		if (isset($_GET['pagePublic'])) 
 		{
 			$pagePublic = $_GET['pagePublic'];
-			$nbpagespublics = ModelVisiteur::getNbPagesPublics();
-			$pagePublic = Validation::validationPage($pagePublic,$nbpagespublics);
-			$public_lists = ModelVisiteur::getListsPubliques($pagePublic);
-
-			if (isset($user_connected) and isset($_GET['pagePrivee'])) 
-			{
-				$pagePrivee = $_GET['pagePrivee'];
-				$nbpagesprivees = ModelVisiteur::getNbPagesPrivees($user_connected);
-				$pagePrivee = Validation::validationPage($pagePrivee, $nbpagesprivees);
-				$private_lists = ModelVisiteur::getListsPrivee($pagePrivee, $user_connected);	
-			}
-
-			require_once __DIR__.'/../Views/header.php';
-			require_once(__DIR__.'/../Views/vue_principale.php');
 		}
+		else {
+			$pagePublic = 1;
+		}
+		
+		$nbpagespublics = ModelVisiteur::getNbPagesPublics();
+		$pagePublic = Validation::validationPage($pagePublic,$nbpagespublics);
+		$public_lists = ModelVisiteur::getListsPubliques($pagePublic);
+
+		if (isset($_SESSION['pseudo'])) 
+		{
+			if (isset($_GET['pagePrivee'])) {
+				$pagePrivee = $_GET['pagePrivee'];
+			}
+			else {
+				$pagePrivee = 1;
+			}
+			
+			$nbpagesprivees = ModelVisiteur::getNbPagesPrivees($user_connected);
+			$pagePrivee = Validation::validationPage($pagePrivee, $nbpagesprivees);
+			$private_lists = ModelVisiteur::getListsPrivee($pagePrivee, $user_connected);	
+		}
+
+		require_once __DIR__.'/../Views/header.php';
+		require_once(__DIR__.'/../Views/vue_principale.php');
 	}
 
 	public function creerListePub()
@@ -107,6 +117,21 @@ class VisiteurController
 			ModelVisiteur::removeListe($idListe);
 		}
 
+	}
+
+	public function connecter()
+	{
+		try {
+			if (isset($_POST['inputPseudo']) and isset($_POST['inputMDP'])) {
+				$pseudo = Nettoyer::NettoyerString($_POST['inputPseudo']);
+				$mdp = Nettoyer::NettoyerString($_POST['inputMDP']);
+
+				ModelUtilisateur::connection($pseudo, $mdp);
+			}
+		}
+		catch (Exception $e) {
+		}
+		
 	}
 }
 ?>

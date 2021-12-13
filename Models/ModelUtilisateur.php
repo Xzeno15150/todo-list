@@ -8,18 +8,18 @@ class ModelUtilisateur
 
 	public static function creerUtil($pseudo,$mdp)
 	{
-		$pseudo = Nettoyage::NettoyerString($pseudo);
-		$mdp = Nettoyage::NettoyerString($mdp);
-		$gw = new UtilisateurGateway(new Connection($dsn,$username,$password));
+		$pseudo = Nettoyer::NettoyerString($pseudo);
+		$mdp = Nettoyer::NettoyerString($mdp);
+		$gw = new UtilisateurGateway(new Connection(Config::$dsn, Config::$usr, Config::$pass));
 		$hash =	password_hash($mdp, PASSWORD_DEFAULT);
 		$gw->createUtilisateur($pseudo,$mdp);
 	}
 
 	public static function connection($pseudo,$mdp)
 	{
-		$pseudo = Nettoyage::NettoyerString($pseudo);
-		$mdp = Nettoyage::NettoyerString($mdp);
-		$gw = new UtilisateurGateway(new Connection($dsn,$username,$password));
+		$pseudo = Nettoyer::NettoyerString($pseudo);
+		$mdp = Nettoyer::NettoyerString($mdp);
+		$gw = new UtilisateurGateway(new Connection(Config::$dsn, Config::$usr, Config::$pass));
 		$hash = $gw->getMdpByPseudo($pseudo);
 
 		if(!isset($hash)) {
@@ -51,7 +51,7 @@ class ModelUtilisateur
 			$role = Nettoyer::NettoyerString($_SESSION['role']);
 			if($role=='user')
 			{
-				$gw = new UtilisateurGateway(new Connection($dsn,$username,$password));
+				$gw = new UtilisateurGateway(new Connection(Config::$dsn, Config::$usr, Config::$pass));
 				return $gw->getUserByPseudo($pseudo);
 			}
 			return null;

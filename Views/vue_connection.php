@@ -11,21 +11,20 @@
     <script src="https://kit.fontawesome.com/753235255d.js" crossorigin="anonymous"></script>
 </head>
 <body>
-
-	<form class="container m-3 p-2 rounded mx-auto shadow" action="../index.php?action=afficherListes?pagePrivee=<?php echo $pagePrivee; ?>&pagePublic=<?php echo $pagePublic; ?>">
+	<form class="container m-3 p-2 rounded mx-auto shadow" action="../index.php?action=connecter" method="post">
 		<div class="form-group">
-		    <label for="inputEmail">Adresse Email</label>
-		    <input type="email" class="form-control" id="inputEmail" placeholder="Entrez un email...">
+		    <label for="inputPseudo">Pseudo</label>
+		    <input type="text" class="form-control" id="inputPseudo" name="inputPseudo" placeholder="Entrez un pseudo...">
 		</div>
 		<div class="form-group">
 		    <label for="inputMDP">Mot de Passe </label>
-		    <input type="password" class="form-control" id="inputMDP" placeholder="Mot de Passe..." aria-describedby="descMDP">
-		    <small id="descMDP" class="form-text text-muted">Au minimum 10 caractères</small>
+		    <input type="password" class="form-control" id="inputMDP" name="inputMDP" placeholder="Mot de Passe..." aria-describedby="descMDP">
+		    <!--<small id="descMDP" class="form-text text-muted">Au minimum 10 caractères</small>-->
 		</div>
-		<div class="form-group form-check">
-			<input type="checkbox" class="form-check-input" id="stayConnectCheck">
+		<!--<div class="form-group form-check">
+			<input type="checkbox" class="form-check-input" id="stayConnectCheck" name="stayConnectCheck">
 		    <label class="form-check-label" for="stayConnectCheck">Rester connecté</label>
-		</div>
+		</div>-->
 	  <button type="submit" class="btn btn-primary">Connection</button>
 	</form>
 </body>

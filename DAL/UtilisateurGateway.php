@@ -25,7 +25,7 @@ class UtilisateurGateway
 
 	public function getUserByPseudo($pseudo)
 	{
-		query = 'SELECT * FROM Utilisateur WHERE pseudo = :pseudo';
+		$query = 'SELECT * FROM Utilisateur WHERE pseudo = :pseudo';
 		$this->con->executeQuery($query, array(
 			":pseudo" => array($id, PDO::PARAM_STR)));
 
@@ -41,14 +41,12 @@ class UtilisateurGateway
 	{
 		$query = 'SELECT mdp FROM Utilisateur WHERE pseudo = :pseudo';
 		$this->con->executeQuery($query, array(
-			":pseudo" => array($id, PDO::PARAM_STR)));
+			":pseudo" => array($pseudo, PDO::PARAM_STR)));
 
 		$res = $this->con->getResults();
-		$tab = [];
 		foreach ($res as $row) {
-			$tab[] = $row['mdp'];
+			return $row['mdp'];
 		}
-		return $tab;
 	}
 
 	public function createUtilisateur(string $pseudo, string $mdp) 

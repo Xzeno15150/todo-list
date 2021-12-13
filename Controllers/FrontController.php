@@ -6,23 +6,29 @@ class FrontController {
 		$listeAction_User= array('deconnecter','creerListePriv');
 				
 		try{	
-			$user_connected=MdlUser::isUser();
+			$user_connected = ModelUtilisateur::isUser();
 			
-			$action=Nettoyer::NettoyerString($_POST['action']);
+			if (!isset($_REQUEST['action'])) {
+				$action = "afficherListes";
+			}
+			else{
+				$action = $_REQUEST['action'];
+			}
+			$action=Nettoyer::NettoyerString($action);
 			
 			if(in_array($action,$listeAction_User))
 			{
+
 				if($user_connected==null) {
 					require("vue_connection.php");
 				}
 				else {
-					new UtilisateurController();
+					new UtilisateurController($action);
 				}	
-			}		
-				
+			}	
 			else	
 			{	
-				new VisiteurController();
+				new VisiteurController($action);
 			}	
 		}		
 		catch (Exception $e){

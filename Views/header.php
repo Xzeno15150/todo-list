@@ -9,17 +9,17 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
                 <?php if (!isset($user_connected)) { ?>
                 <li class="nav-item mr-3">
-                    <a type="button" class="btn btn-primary" href="Views/vue_connection.php">Connection</a>
+                    <a class="btn btn-primary" href="Views/vue_connection.php">Connection</a>
                 </li>
                 <li class="nav-item">
-                    <input type="button" class="btn btn-outline-info" value="Inscription" />
+                    <a class="btn btn-outline-info" href="index.php?action=inscription">Inscription</a>
                 </li>
                 <?php } else { ?>
                 <li class="nav-item">
-                    <span href="#" class="h3 text-light rounded mr-2"><u><?php echo $user_connected->getPseudo(); ?></u></span>
+                    <span href="#" class="h3 text-light rounded mr-2"><u><?php echo $user_connected->getPseudo();?></u></span>
                 </li>
                 <li class="nav-item">
-                    <input type="button" class="btn btn-warning" value="Déconnexion" />
+                    <a type="button" class="btn btn-warning" href="index.php?action=deconnecter">Déconnection</a>
                 </li>  
                 <?php }?>
             </ul>

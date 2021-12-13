@@ -6,13 +6,11 @@ class Utilisateur
 {
 	private $id;
 	private $pseudo;
-	private $mdp;
 
-	public function __construct(int $id, string $pseudo, string $mdp)
+	public function __construct(int $id, string $pseudo)
 	{
 		$this->id = $id;
 		$this->pseudo = $pseudo;
-		$this->mdp = $mdp;
 	}
 
 	public function getId()
@@ -23,11 +21,6 @@ class Utilisateur
 	public function getPseudo()
 	{
 		return $this->pseudo;
-	}
-
-	public function getMdp()
-	{
-		return $this->mdp;
 	}
 
 	public function setPseudo($pseudo)
