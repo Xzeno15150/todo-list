@@ -9,9 +9,7 @@ class UtilisateurController extends VisiteurController
 			case 'creerListePriv':
 				$this->creerListePrivee();
 				break;
-			case 'connecter':
-				// code...
-				break;
+			
 			case 'deconnecter':
 				// code...
 				break;
