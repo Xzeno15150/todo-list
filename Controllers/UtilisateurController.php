@@ -10,9 +10,7 @@ class UtilisateurController
 			case 'creerListePriv':
 				$this->creerListePrivee();
 				break;
-			case 'connecter':
-				// code...
-				break;
+			
 			case 'deconnecter':
 				// code...
 				break;
