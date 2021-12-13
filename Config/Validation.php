@@ -22,5 +22,6 @@ class Validation
 			}
 			return $page;
 		}
+		return 1;
 	}
 }

@@ -30,7 +30,10 @@ class VisiteurController
 				case 'checkTache':
 					
 					break;
-
+				case null :
+					$this->afficherListes();
+					break;
+					
 				default:
 					throw new Exception("Action inexistante", 1);
 			}
@@ -72,7 +75,7 @@ class VisiteurController
 			$nomListe = Nettoyer::NettoyerString($nomListe);
 			$liste = new Liste($nomListe);
 			ModelVisiteur::addListePub($liste);
-			$this->afficherListes();è
+			$this->afficherListes();
 		}
 	}
 
