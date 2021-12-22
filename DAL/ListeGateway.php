@@ -1,23 +1,40 @@
 <?php
 
-
+/**
+ * Classe Gateway de Liste
+ */
 class ListeGateway
 {
 	private $con;
 
-	public function __construct($con)
+    /**
+     * Constructeur de ListeGateway
+     * @param Connection $con Instance de Connection à la base
+     */
+	public function __construct(Connection $con)
 	{
 		$this->con=$con;
 	}
 
-	public function createListePublic($nom)
+    /**
+     * Créer une nouvelle Liste publique en base
+     * @param string $nom Nom de la Liste
+     * @return bool Retourne 'true' si ça à fonctionner, 'false' sinon
+     */
+	public function createListePublic(string $nom)
 	{
 		$query = "INSERT INTO Liste(nom, dateL) VALUES(:nom, CURDATE())";
 		return $this->con->executeQuery($query,array(
 			':nom' => array($nom, PDO::PARAM_STR)));
 	}
 
-	public function createListePrivee($nom, $user)
+    /**
+     * Créer une nouvelle Liste privée en base
+     * @param string $nom Nom de la Liste
+     * @param Utilisateur $user Utilisateur propriétaire de cette Liste
+     * @return bool Retourne 'true' si ça à fonctionner, 'false' sinon
+     */
+	public function createListePrivee(string $nom, Utilisateur $user)
 	{
 		$query = 'INSERT INTO Liste(nom, idUtil, dateL) VALUES (:nom, :iduser, CURDATE())';
 		return $this->con->executeQuery($query, array(
@@ -25,15 +42,26 @@ class ListeGateway
 			':iduser' => array($user->getId(), PDO::PARAM_INT)));
 	}
 
-	public function deleteListeById($id)
+    /**
+     * Supprime une Liste en base
+     * @param int $id ID de la liste à supprimer
+     * @return bool Retourne 'true' si ça à fonctionner, 'false' sinon
+     */
+	public function deleteListeById(int $id)
 	{
 		$query = "DELETE FROM Liste WHERE id=:id";
 		return $this->con->executeQuery($query,array(
 			':id' => array($id, PDO::PARAM_INT)));
 	}
 
-
-	public function getListsByUserByPage($page, $nbparpages, $iduser) {
+    /**
+     * Retourne toutes les Liste privée d'une page donnée
+     * @param int $page Numéro de la page
+     * @param int $nbparpages Nombre de Liste sur la page
+     * @param int|null $iduser ID du propriétaire de la liste (NULL si publique)
+     * @return array
+     */
+	public function getListsByUserByPage(int $page, int $nbparpages, ?int $iduser) {
 		$premierepage = ($page-1)*$nbparpages;
 		if ($iduser != NULL) {
 			$query = "SELECT * FROM Liste  WHERE idUtil = :idutil 
@@ -58,13 +86,24 @@ class ListeGateway
 		return ($tab);
 	}
 
-	public function getListsByPage($page, $nbparpages)
+    /**
+     * Rertourne les Liste publiques d'une page donnée
+     * @param int $page Numéro de la page
+     * @param int $nbparpages Nombre de Liste sur la page
+     * @return array
+     */
+	public function getListsByPage(int $page, int $nbparpages)
 	{
 		return $this->getListsByUserByPage($page, $nbparpages, NULL);
 	}
 
-
-	public function getNbPagesPrivees($nbparpages, $user)
+    /**
+     * Retourne le nombre de page de Liste privée d'un utilisateur
+     * @param int $nbparpages Nombre de Liste par page
+     * @param Utilisateur|null $user Utilisateur propriétaire des List (NULL si publiques)
+     * @return false|float Retourne false si le résultat n'est pas trouvé, sinon retourne le nombre de pages
+     */
+	public function getNbPagesPrivees(int $nbparpages, ?Utilisateur $user)
 	{
 		if ($user != NULL) {
 			$query = "SELECT COUNT(*) FROM Liste where idUtil = :iduser";
@@ -83,12 +122,17 @@ class ListeGateway
 
 	}
 
-	public function getNbPagesPublics($nbparpages)
+    /**
+     * Retourne le nombre de pages de Liste publiques
+     * @param int $nbparpages Nombre de Liste par page
+     * @return false|float Retourne false si le résultat n'est pas trouvé, sinon retourne le nombre de pages
+     */
+	public function getNbPagesPublics(int $nbparpages)
 	{
 		return $this->getNbPagesPrivees($nbparpages, NULL);
 	}
 
-	public function getListById($id)
+	public function getListById(int $id)
 	{
 		$query = "SELECT * FROM Liste WHERE id = :id";
 		$this->con->executeQuery($query, array(
@@ -102,14 +146,23 @@ class ListeGateway
 		return new Liste($row['nom'], $row['id'], $row['checked'], $row['idUtil']);
 	}
 
-	public function checkListById($id)
+    /**
+     * Modifie l'état (terminée ou non) d'une Liste
+     * @param int $id ID de la Liste à modifier
+     */
+	public function checkListById(int $id)
 	{
 		$query = "UPDATE Liste SET checked = 1-checked WHERE id = :id";
 		$this->con->executeQuery($query,
 			array(':id' => array($id, PDO::PARAM_INT)));
 	}
 
-	public function modifyListe($id, $nom)
+    /**
+     * Modifie le nom d'une liste
+     * @param int $id ID de la Liste à modifier
+     * @param string $nom Nouveau nom de la Liste
+     */
+	public function modifyListe(int $id, string $nom)
 	{
 		$query = "UPDATE Liste SET nom = :nom WHERE id = :id";
 		$this->con->executeQuery($query, array(
