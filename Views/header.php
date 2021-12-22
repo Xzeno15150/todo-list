@@ -12,7 +12,7 @@
                     <a class="btn btn-primary" href="Views/vue_connection.php">Connection</a>
                 </li>
                 <li class="nav-item">
-                    <a class="btn btn-outline-info" href="index.php?action=inscription">Inscription</a>
+                    <a class="btn btn-outline-info" href="Views/vue_inscription.php">Inscription</a>
                 </li>
                 <?php } else { ?>
                 <li class="nav-item">

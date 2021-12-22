@@ -19,7 +19,12 @@ class ModelUtilisateur
 		$mdp = Nettoyer::NettoyerString($mdp);
 		$gw = new UtilisateurGateway(new Connection(Config::$dsn, Config::$usr, Config::$pass));
 		$hash =	password_hash($mdp, PASSWORD_DEFAULT);
-		$gw->createUtilisateur($pseudo,$mdp);
+
+		if ($gw->getUserByPseudo($pseudo) != NULL) {
+			throw new Exception("Ce pseudo existe déjà", 1);
+		}
+		echo "string";
+		$gw->createUtilisateur($pseudo,$hash);
 	}
 
 	public static function connection($pseudo,$mdp)
@@ -32,9 +37,9 @@ class ModelUtilisateur
 		if(!isset($hash)) {
 			throw new Exception('Mauvais pseudo');
 		}
-		//$existe = password_verify($mdp,$hash);
+		$existe = password_verify($mdp,$hash);
 
-		if($mdp == $hash){
+		if($existe){
 			$_SESSION['role'] = 'user';
 			$_SESSION['pseudo'] = $pseudo;
 		}

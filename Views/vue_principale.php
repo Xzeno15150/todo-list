@@ -52,7 +52,7 @@
                 <?php 
                 if (isset($idEdit) && $liste->getId() == $idEdit) {?>
                     <form action="index.php?action=editListe" method="post">
-                        <input type="text" name="editListeNom" placeholder="Ancien nom : <?php $liste->getNom()?>">
+                        <input type="text" name="editListeNom" placeholder="Ancien nom : <?php echo $liste->getNom(); ?>" required>
                         <input type="text" name="idEdit" hidden value="<?php echo $liste->getId();?>">
                         <input type="submit" class="btn btn-success" name="Modifier">
                     </form>

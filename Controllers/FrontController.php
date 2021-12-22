@@ -12,14 +12,13 @@ class FrontController {
 				$action = "afficherListes";
 			}
 			else{
-				$action = $_REQUEST['action'];
+				$action = Nettoyer::NettoyerString($_REQUEST['action']);
 			}
-			$action=Nettoyer::NettoyerString($action);
 			
 			if(in_array($action,$listeAction_User))
 			{
 
-				if($user_connected==null) {
+				if($user_connected == NULL) {
 					require("vue_connection.php");
 				}
 				else {

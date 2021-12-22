@@ -44,7 +44,7 @@ class VisiteurController
 					$this->connecter();
 					break;
 				case 'inscription':
-
+					$this->inscription();
 					break;
 
 
@@ -144,6 +144,7 @@ class VisiteurController
 			}
 		}
 		catch (Exception $e) {
+			echo $e;
 			header('Location: Views/vue_connection.php');
 		}
 		
@@ -166,6 +167,22 @@ class VisiteurController
 
 			ModelVisiteur::modifyListe($idListe, $nomListe);
 			$this->afficherListes();
+		}
+	}
+
+	public function inscription()
+	{
+		try {
+			if (isset($_POST['inputPseudo']) && isset($_POST['inputMDP'])) {
+				$pseudo = Nettoyer::NettoyerString($_POST['inputPseudo']);
+				$mdp = Nettoyer::NettoyerString($_POST['inputMDP']);
+		
+				ModelUtilisateur::creerUtil($pseudo, $mdp);
+				header('Location: Views/vue_connection.php');
+			}
+		}
+		catch(Exception $e) {
+			header('Location: Views/vue_inscription.php');
 		}
 	}
 }
