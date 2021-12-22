@@ -6,6 +6,13 @@
 class ModelUtilisateur
 {
 
+	public static function creerListePrivee($nom, $user) {
+		$con = new Connection(Config::$dsn, Config::$usr, Config::$pass);
+		$lg = new ListeGateway($con);
+
+		$lg->createListePrivee($nom, $user);
+	}
+
 	public static function creerUtil($pseudo,$mdp)
 	{
 		$pseudo = Nettoyer::NettoyerString($pseudo);
@@ -25,11 +32,11 @@ class ModelUtilisateur
 		if(!isset($hash)) {
 			throw new Exception('Mauvais pseudo');
 		}
-		$existe = password_verify($mdp,$hash);
+		//$existe = password_verify($mdp,$hash);
 
-		if($existe){
+		if($mdp == $hash){
 			$_SESSION['role'] = 'user';
-			$_SESSION['pseudo'] = 'pseudo';
+			$_SESSION['pseudo'] = $pseudo;
 		}
 		else {
 			throw new Exception('Mauvais mot de passe');
@@ -54,7 +61,6 @@ class ModelUtilisateur
 				$gw = new UtilisateurGateway(new Connection(Config::$dsn, Config::$usr, Config::$pass));
 				return $gw->getUserByPseudo($pseudo);
 			}
-			return null;
 		}
 		return null;
 	}	

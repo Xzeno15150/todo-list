@@ -27,14 +27,12 @@ class UtilisateurGateway
 	{
 		$query = 'SELECT * FROM Utilisateur WHERE pseudo = :pseudo';
 		$this->con->executeQuery($query, array(
-			":pseudo" => array($id, PDO::PARAM_STR)));
+			":pseudo" => array($pseudo, PDO::PARAM_STR)));
 
 		$res = $this->con->getResults();
-		$tab = [];
 		foreach ($res as $row) {
-			$tab[] = new Utilisateur($row['id'], $row['pseudo']);
+			return new Utilisateur($row['id'], $row['pseudo']);
 		}
-		return $tab;
 	}
 
 	public function getMdpByPseudo (string $pseudo)

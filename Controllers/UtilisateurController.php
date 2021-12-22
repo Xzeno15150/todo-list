@@ -26,17 +26,18 @@ class UtilisateurController
 		if (isset($_POST['nomListePriv'])) {
 			$nom = $_POST['nomListePriv'];
 			$nom = Nettoyer::NettoyerString($nom);
-	
-			$con = new Connection($dsn, $usr, $pass);
-			$lg = new ListeGateway($con);
-	
-			$liste = new Liste($nom, null, 0, $user_connected->getId());
-			$lg->creerListePrivee($liste);
+
+			$user = ModelUtilisateur::isUser();
+			ModelUtilisateur::creerListePrivee($nom, $user);
+
+			header('Location: index.php');
+
 		}
 	}
 
 	public function deconnecter()
 	{
 		ModelUtilisateur::deconnection();
+		header('Location: index.php');
 	}
 }

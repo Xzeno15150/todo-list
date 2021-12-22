@@ -16,7 +16,8 @@ class Validation
 	public static function validationPage(int $page, int $nbpages) : int
 	{
 		if (isset($page)) {
-			$page = filter_var($page, FILTER_VALIDATE_INT);
+			$page = Nettoyer::NettoyerInt($page);
+			$nbpages = Nettoyer::NettoyerInt($nbpages);
 			if ($page <= 0 || $page > $nbpages) {
 				return 1;
 			}

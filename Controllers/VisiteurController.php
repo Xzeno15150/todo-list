@@ -10,30 +10,39 @@ class VisiteurController
 				case 'afficherListes':
 					$this->afficherListes();
 					break;
+				case 'afficherTaches' :
+					$this->afficherTaches();
+					break;
+
+
+
 				case 'creerListePub':
 					$this->creerListePub();
 					break;
-				
-				case 'creerTache' :
-					$this->creerTache();
-					break;
-
 				case 'supListe':
 					$this->supListe();
 					break;
-
 				case 'checkListe':
-					
+					$this->checkListe();
+					break;
+				case 'editListe' :
+					$this->editListe();
 					break;
 
+
+
+				case 'creerTache' :
+					$this->creerTache();
+					break;
 				case 'checkTache':
 					
 					break;
 
+
+
 				case 'connecter':
 					$this->connecter();
 					break;
-
 				case 'inscription':
 
 					break;
@@ -52,42 +61,46 @@ class VisiteurController
 	}
 	public function afficherListes()
 	{
+		$pagePublic = 1;
 		if (isset($_GET['pagePublic'])) 
 		{
-			$pagePublic = $_GET['pagePublic'];
-		}
-		else {
-			$pagePublic = 1;
+			$pagePublic = Nettoyer::NettoyerInt((int) $_GET['pagePublic']);
 		}
 		
 		$nbpagespublics = ModelVisiteur::getNbPagesPublics();
 		$pagePublic = Validation::validationPage($pagePublic,$nbpagespublics);
 		$public_lists = ModelVisiteur::getListsPubliques($pagePublic);
 
-		if (isset($_SESSION['pseudo'])) 
+		$user_connected = ModelUtilisateur::isUser();
+		if ($user_connected != NULL) 
 		{
+			$pagePrivee = 1;
 			if (isset($_GET['pagePrivee'])) {
-				$pagePrivee = $_GET['pagePrivee'];
-			}
-			else {
-				$pagePrivee = 1;
+				$pagePrivee = Nettoyer::NettoyerInt((int) $_GET['pagePrivee']);
 			}
 			
 			$nbpagesprivees = ModelVisiteur::getNbPagesPrivees($user_connected);
 			$pagePrivee = Validation::validationPage($pagePrivee, $nbpagesprivees);
 			$private_lists = ModelVisiteur::getListsPrivee($pagePrivee, $user_connected);	
 		}
+		if (isset($_GET['idEdit'])) {
+			$idEdit = Nettoyer::NettoyerInt((int) $_GET['idEdit']);
+		}
 
 		require_once __DIR__.'/../Views/header.php';
 		require_once(__DIR__.'/../Views/vue_principale.php');
+	}
+
+	public function afficherTaches()
+	{
+		
 	}
 
 	public function creerListePub()
 	{
 		if(isset($_POST['nomListePub']))
 		{
-			$nomListe = $_POST['nomListePub'];
-			$nomListe = Nettoyer::NettoyerString($nomListe);
+			$nomListe = Nettoyer::NettoyerString($_POST['nomListePub']);
 			$liste = new Liste($nomListe);
 			ModelVisiteur::addListePub($liste);
 			$this->afficherListes();
@@ -97,13 +110,11 @@ class VisiteurController
 	public function creerTache()
 	{
 		if (isset($_POST['nomTache']) and isset($_POST['descTache']) and isset($_POST['idListe'])) {
-			$nomTache = $_POST['nomTache'];
-			$descTache = $_POST['descTache'];
-			$idListe = $_POST['idListe'];
-			$nomTache = Nettoyer::NettoyerString($nomTache);
-			$descTache = Nettoyer::NettoyerString($descTache);
+			$idListe = Nettoyer::NettoyerInt($_POST['idListe']);
+			$nomTache = Nettoyer::NettoyerString($_POST['nomTache']);
+			$descTache = Nettoyer::NettoyerString($_POST['descTache']);
 
-			$tache = new Tache ($nomTache,$descTache,date());
+			$tache = new Tache ($nomTache, $descTache);
 
 			ModelVisiteur::addTacheToListe($tache, $idListe);
 		}
@@ -111,10 +122,11 @@ class VisiteurController
 
 	public function supListe()
 	{
-		if (isset($_POST['idList'])) 
+		if (isset($_GET['id'])) 
 		{
-			$idListe=$_POST['idList'];
+			$idListe = Nettoyer::NettoyerInt($_GET['id']);
 			ModelVisiteur::removeListe($idListe);
+			$this->afficherListes();
 		}
 
 	}
@@ -127,11 +139,34 @@ class VisiteurController
 				$mdp = Nettoyer::NettoyerString($_POST['inputMDP']);
 
 				ModelUtilisateur::connection($pseudo, $mdp);
+				$user_connected = ModelUtilisateur::isUser();
+				header('Location: index.php');
 			}
 		}
 		catch (Exception $e) {
+			header('Location: Views/vue_connection.php');
 		}
 		
+	}
+
+	public function checkListe()
+	{
+		if (isset($_GET['id']))  {
+			$idListe = Nettoyer::NettoyerInt($_GET['id']);
+			ModelVisiteur::checkListe($idListe);
+			$this->afficherListes();
+		}
+	}
+
+	public function editListe()
+	{
+		if (isset($_POST['idEdit']) && isset($_POST['editListeNom'])) {
+			$idListe = Nettoyer::NettoyerInt((int) $_POST['idEdit']);
+			$nomListe = Nettoyer::NettoyerString($_POST['editListeNom']);
+
+			ModelVisiteur::modifyListe($idListe, $nomListe);
+			$this->afficherListes();
+		}
 	}
 }
 ?>

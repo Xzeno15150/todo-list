@@ -26,7 +26,7 @@
             <div class="col col-11 mx-auto">
                 <div class="row bg-white rounded shadow-sm p-2 add-todo-wrapper align-items-center justify-content-center">
                     <form method="post" class="d-flex col" action="index.php?action=creerListePriv">
-                        <input class="form-control form-control-lg border-1 add-todo-input bg-transparent rounded mr-3" type="text" placeholder="Ajouter une nouvelle liste.." name="nomListePriv">
+                        <input class="form-control form-control-lg border-1 add-todo-input bg-transparent rounded mr-3" type="text" placeholder="Ajouter une nouvelle liste.." name="nomListePriv" required>
                         <button type="submit" class="btn btn-primary">Nouvelle Liste</button>
                     </form>
                 </div>
@@ -49,30 +49,42 @@
                 </h2>
             </div>
             <div class="col px-1 m-1 ml-3 d-flex align-items-center">
-                <?php if ($liste->isChecked()) { ?>
-                    <a href="" class="btn btn-outline-dark border-0 rounded px-3">
-                        <s>
+                <?php 
+                if (isset($idEdit) && $liste->getId() == $idEdit) {?>
+                    <form action="index.php?action=editListe" method="post">
+                        <input type="text" name="editListeNom" placeholder="Ancien nom : <?php $liste->getNom()?>">
+                        <input type="text" name="idEdit" hidden value="<?php echo $liste->getId();?>">
+                        <input type="submit" class="btn btn-success" name="Modifier">
+                    </form>
+                <?php 
+                }
+                else { 
+                    if ($liste->isChecked()) { ?>
+                        <a href="" class="btn btn-outline-dark border-0 rounded px-3">
+                            <s>
+                                <?php echo $liste->getNom()?>
+                            </s>
+                        </a>
+                    <?php }
+                    else { ?>
+                        <a href="" class="btn btn-outline-dark border-0 rounded px-3">
                             <?php echo $liste->getNom()?>
-                        </s>
-                    </a>
-                <?php }
-                else { ?>
-                    <a href="" class="btn btn-outline-dark border-0 rounded px-3">
-                        <?php echo $liste->getNom()?>
-                    </a>
-                <?php  }?>
-                
-                
+                        </a>
+                    <?php  
+                    }
+                } ?>
             </div>
             <div class="col-auto m-1 p-0">
                 <div class="row d-flex align-items-center justify-content-end">
                     <h5 class="m-0 p-0 px-2">
-                        <a href="index.php?action">
+                        <a href="index.php?action=afficherListes&idEdit=<?php echo $liste->getId();?>">
                             <i class="fas fa-pen text-info btn p-0 m-0" title="Modifier Liste"></i>
                         </a>
                     </h5>
                     <h5 class="m-0 p-0 px-2">
-                        <i class="fas fa-trash text-danger btn m-0 p-0" title="Effacer Liste"></i>
+                        <a href="index.php?action=supListe&id=<?php echo $liste->getId(); ?>">
+                            <i class="fas fa-trash text-danger btn m-0 p-0" title="Effacer Liste"></i>
+                        </a>
                     </h5>
                 </div>
             </div>
@@ -130,27 +142,43 @@
                     ?>
             </div>
             <div class="col px-1 m-1 ml-3 d-flex align-items-center">
-                <?php if ($liste->isChecked()) { ?>
-                    <a href="" class="btn btn-outline-dark border-0 rounded px-3">
-                        <s>
+                <?php 
+                if (isset($idEdit) && $liste->getId() == $idEdit) {?>
+                    <form action="index.php?action=editListe" method="post">
+                        <input type="text" name="editListeNom" placeholder="Ancien nom : <?php echo $liste->getNom(); ?>" required>
+                        <input type="text" name="idEdit" hidden value="<?php echo $liste->getId();?>">
+                        <input type="submit" class="btn btn-success" name="editListe" value="Modifier">
+                    </form>
+                <?php 
+                }
+                else { 
+                    if ($liste->isChecked()) { ?>
+                        <a href="" class="btn btn-outline-dark border-0 rounded px-3">
+                            <s>
+                                <?php echo $liste->getNom()?>
+                            </s>
+                        </a>
+                    <?php }
+                    else { ?>
+                        <a href="" class="btn btn-outline-dark border-0 rounded px-3">
                             <?php echo $liste->getNom()?>
-                        </s>
-                    </a>
-                <?php }
-                else { ?>
-                    <a href="" class="btn btn-outline-dark border-0 rounded px-3">
-                        <?php echo $liste->getNom()?>
-                    </a>
-                <?php  }?>
+                        </a>
+                    <?php  
+                    }
+                } ?>
                 
             </div>
             <div class="col-auto m-1 p-0">
                 <div class="row d-flex align-items-center justify-content-end">
                     <h5 class="m-0 p-0 px-2">
-                        <i class="fas fa-pen text-info btn p-0 m-0" title="Modifier Liste"></i>
+                        <a href="index.php?action=afficherListes&idEdit=<?php echo $liste->getId();?>">
+                            <i class="fas fa-pen text-info btn p-0 m-0" title="Modifier Liste"></i>
+                        </a>
                     </h5>
                     <h5 class="m-0 p-0 px-2">
-                        <i class="fas fa-trash text-danger btn m-0 p-0" title="Effacer Liste"></i>
+                        <a href="index.php?action=supListe&id=<?php echo $liste->getId(); ?>">
+                            <i class="fas fa-trash text-danger btn m-0 p-0" title="Effacer Liste"></i>
+                        </a>
                     </h5>
                 </div>
             </div>
@@ -160,15 +188,15 @@
     <?php if (isset($nbpagespublics)) {
             if($nbpagespublics > 1) { ?>
                 <div class="container m-3 p-2rounded mx-auto shadow">
-                    <a href="index.php?action=afficherListes&pagePublic=1&pagePrivee=<?php echo $pagePrivee ?>" class="btn">1</a>
+                    <a href="index.php?action=afficherListes&pagePublic=1" class="btn">1</a>
                     <?php if($pagePublic > 2) {?>
-                        <a href="index.php?action=afficherListes&pagePublic=<?php echo $pagePublic-1 ?>&pagePrivee=<?php echo $pagePrivee ?>" class="btn">&lt;</a>
+                        <a href="index.php?action=afficherListes&pagePublic=<?php echo $pagePublic-1 ?>" class="btn">&lt;</a>
                     <?php }?>
                     <span class="text-primary">...</span>
                     <?php if($pagePublic < $nbpagespublics-1) {?>
-                        <a href="index.php?action=afficherListes&pagePublic=<?php echo $pagePublic+1 ?>&pagePrivee=<?php echo $pagePrivee ?>" class="btn">&gt;</a>
+                        <a href="index.php?action=afficherListes&pagePublic=<?php echo $pagePublic+1 ?>" class="btn">&gt;</a>
                     <?php }?>
-                    <a href="index.php?action=afficherListes&pagePublic=<?php echo $nbpagespublics?>&pagePrivee=<?php echo $pagePrivee ?>" class="btn"><?php echo $nbpagespublics?></a>
+                    <a href="index.php?action=afficherListes&pagePublic=<?php echo $nbpagespublics?>" class="btn"><?php echo $nbpagespublics?></a>
                 </div>
     <?php   }
     }?>

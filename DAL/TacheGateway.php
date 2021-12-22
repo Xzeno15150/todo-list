@@ -15,11 +15,10 @@ class TacheGateway
 
 	public function createTache($tache, $idListe)
 	{
-		$query = "INSERT INTO Tache(title, descT, dateT, idListe) VALUES(:title, :descT, STR_TO_DATE(:dateT, '%d/%m/%Y'), :idListe)";
+		$query = "INSERT INTO Tache(title, descT, dateT, idListe) VALUES(:title, :descT, CURDATE()), :idListe)";
 		return $this->con->executeQuery($query, array(
 			':title' => array($tache->getTitle(), PDO::PARAM_STR),
 			':descT' => array($tache->getDesc(), PDO::PARAM_STR),
-			':dateT' => array($tache->getDate(), PDO::PARAM_STR),
 			':idListe' => array($idListe, PDO::PARAM_INT)
 		));
 	}

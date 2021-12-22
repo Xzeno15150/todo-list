@@ -8,7 +8,7 @@ class Liste {
 	private $checked;
 	private $idUtil;
 	
-	public function __construct(string $nom, ?int $id, int $checked=0, ?int $idUtil)
+	public function __construct(string $nom, ?int $id = null, int $checked=0, ?int $idUtil = null)
 	{
 		$this->id = $id;
 		$this->nom=$nom;
