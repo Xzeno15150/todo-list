@@ -61,7 +61,7 @@ class ListeGateway
      * @param int|null $iduser ID du propriétaire de la liste (NULL si publique)
      * @return array
      */
-	public function getListsByUserByPage(int $page, int $nbparpages, ?int $iduser) {
+	public function getListsByPage(int $page, int $nbparpages, ?int $iduser) {
 		$premierepage = ($page-1)*$nbparpages;
 		if ($iduser != NULL) {
 			$query = "SELECT * FROM Liste  WHERE idUtil = :idutil 
@@ -92,24 +92,24 @@ class ListeGateway
      * @param int $nbparpages Nombre de Liste sur la page
      * @return array
      */
-	public function getListsByPage(int $page, int $nbparpages)
+	public function getPublicListsByPage(int $page, int $nbparpages)
 	{
-		return $this->getListsByUserByPage($page, $nbparpages, NULL);
+		return $this->getListsByPage($page, $nbparpages, NULL);
 	}
 
     /**
      * Retourne le nombre de page de Liste privée d'un utilisateur
      * @param int $nbparpages Nombre de Liste par page
-     * @param Utilisateur|null $user Utilisateur propriétaire des List (NULL si publiques)
-     * @return false|float Retourne false si le résultat n'est pas trouvé, sinon retourne le nombre de pages
+     * @param int|null $idUser ID de l'Utilisateur propriétaire (NULL si publique)
+     * @return float Retourne false si le résultat n'est pas trouvé, sinon retourne le nombre de pages
      */
-	public function getNbPagesPrivees(int $nbparpages, ?Utilisateur $user)
+	public function getNbPages(int $nbparpages, ?int $idUser)
 	{
-		if ($user != NULL) {
+		if ($idUser != NULL) {
 			$query = "SELECT COUNT(*) FROM Liste where idUtil = :iduser";
 
 			$this->con->executeQuery($query, array(
-				':iduser' => array($user, PDO::PARAM_INT)));
+				':iduser' => array($idUser, PDO::PARAM_INT)));
 		}
 		else {
 			$query = "SELECT COUNT(*) FROM Liste where idUtil IS NULL";
@@ -118,8 +118,8 @@ class ListeGateway
 		
 
 		$res = $this->con->getResults();
-		return ceil($res[0][0]/$nbparpages);
-
+        $ret = ceil($res[0][0]/$nbparpages) ;
+		return ($ret != null) ? $ret : 0;
 	}
 
     /**
@@ -129,7 +129,7 @@ class ListeGateway
      */
 	public function getNbPagesPublics(int $nbparpages)
 	{
-		return $this->getNbPagesPrivees($nbparpages, NULL);
+		return $this->getNbPages($nbparpages, NULL);
 	}
 
 	public function getListById(int $id)
