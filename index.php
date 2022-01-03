@@ -7,8 +7,3 @@ Autoloader::charger();
 require_once(__DIR__."/Config/Config.php");
 
 new FrontController();
-
-
-
-
-
