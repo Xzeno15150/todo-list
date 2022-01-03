@@ -14,7 +14,11 @@ class FrontController {
      * Test l'action demandée appartient pour savoir à quel controller elle appartient.
      * Elle gère aussi les éventuelles Exceptions lancées.
      */
-	public function __construct() {
+	public function __construct() 
+	{
+		global $rep;
+		global $vues;
+
         // Liste des actions du rôle Utilisateur
 		$listeAction_User= array('deconnecter','creerListePriv');
 				
@@ -35,7 +39,7 @@ class FrontController {
 			{
                 // Si pas connecté, appel à la vue de connection
 				if($user_connected == NULL) {
-					require("vue_connection.php");
+					require($rep.$vues["connection"]);
 				}
 				else {
 					new UtilisateurController($action);
@@ -48,8 +52,8 @@ class FrontController {
 			}	
 		}		
 		catch (Exception $e){
-			$dVueErreur[]=$e;
-			require('vue_erreur.php');
+			$dVueErreur[]=$e->getMessage();
+			require($rep.$vues["erreur"]);
 		}		
 	}			
 }				

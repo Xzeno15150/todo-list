@@ -47,7 +47,7 @@ class VisiteurController
                 $this->creerTache();
                 break;
             case 'checkTache':
-
+            	$this->checkTache();
                 break;
 
 
@@ -76,6 +76,8 @@ class VisiteurController
      */
 	public function afficherListes()
 	{
+		global $rep;
+		global $vues;
         // Si pas de page demandée, la page par défaut est la 1
 		$pagePublic = 1;
 		if (isset($_GET['pagePublic'])) 
@@ -107,13 +109,42 @@ class VisiteurController
 		}
 
         // Appel des vues
-		require_once __DIR__.'/../Views/header.php';
-		require_once(__DIR__.'/../Views/vue_principale.php');
+		require_once $rep.$vues["header"];
+		require_once $rep.$vues["main"];
 	}
 
-	public function afficherTaches()
+	/**
+ 	* Affichage des Tache d'une Liste
+ 	* 
+ 	* Affichage de l'édition d'une Tache
+ 	* @param int $idListe ID de la Liste
+ 	*/
+	public function afficherTaches(int $id = null)
 	{
-		
+		global $rep;
+		global $vues;
+
+		if (!isset($_GET['id'])) {
+			if ($id == null) {
+				$this->afficherListes();
+				return;
+			}
+			$idListe = $id;
+		}
+		else{
+			$idListe = Nettoyer::NettoyerInt((int) $_GET['id']);
+		}
+		$liste = ModelVisiteur::getListeByID($idListe);
+		$page = 1;
+		if (isset($_GET['page'])) {
+			$page = Nettoyer::NettoyerInt((int) $_GET['page']);
+		}
+		$nbpages = ModelVisiteur::getNbPagesTaches($idListe);
+		$page = Validation::validationPage($page, $nbpages);
+		$lesTaches = ModelVisiteur::getTaches($page, $idListe);
+
+		require_once $rep.$vues["header"];
+		require_once $rep.$vues['liste'];
 	}
 
     /**
@@ -134,13 +165,17 @@ class VisiteurController
      */
 	public function creerTache()
 	{
-		if (isset($_POST['nomTache']) and isset($_POST['descTache']) and isset($_POST['idListe'])) {
-			$idListe = Nettoyer::NettoyerInt($_POST['idListe']);
-			$nomTache = Nettoyer::NettoyerString($_POST['nomTache']);
+		if (isset($_POST['titleTache']) and isset($_POST['descTache']) and isset($_POST['idListe'])) {
+
+			$idListe = Nettoyer::NettoyerInt((int) $_POST['idListe']);
+			$nomTache = Nettoyer::NettoyerString($_POST['titleTache']);
 			$descTache = Nettoyer::NettoyerString($_POST['descTache']);
 
-			ModelVisiteur::addTacheToListe($nomTache,$descTache, $idListe);
+			ModelVisiteur::addTacheToListe($nomTache, $descTache, $idListe);
+
+			$this->afficherTaches($idListe);
 		}
+
 	}
 
     /**
@@ -164,6 +199,9 @@ class VisiteurController
      */
 	public function connecter()
 	{
+		global $rep;
+		global $vues;
+
 		try {
 			if (isset($_POST['inputPseudo']) and isset($_POST['inputMDP'])) {
 				$pseudo = Nettoyer::NettoyerString($_POST['inputPseudo']);
@@ -174,8 +212,9 @@ class VisiteurController
 			}
 		}
 		catch (Exception $e) {
-			echo $e;
-			header('Location: Views/vue_connection.php');
+			require_once $rep.$vues["connection"];
+			$dVueErreur[] = $e;
+			require_once $rep.$vues["erreur"];
 		}
 		
 	}
@@ -193,6 +232,16 @@ class VisiteurController
 			$idListe = Nettoyer::NettoyerInt($_GET['id']);
 			ModelVisiteur::checkListe($idListe);
 			$this->afficherListes();
+		}
+	}
+
+	public function checkTache()
+	{
+		if (isset($_GET['id']) && isset($_GET['idt'])) {
+			$id = Nettoyer::NettoyerInt((int) $_GET['idt']);
+			ModelVisiteur::checkTache($id);
+			$idl = Nettoyer::NettoyerInt((int) $_GET['id']);
+			$this->afficherTaches($idl);
 		}
 	}
 
@@ -218,17 +267,22 @@ class VisiteurController
      */
 	public function inscription()
 	{
+		global $rep;
+		global $vues;
+
 		try {
 			if (isset($_POST['inputPseudo']) && isset($_POST['inputMDP'])) {
 				$pseudo = Nettoyer::NettoyerString($_POST['inputPseudo']);
 				$mdp = Nettoyer::NettoyerString($_POST['inputMDP']);
 		
 				ModelUtilisateur::creerUtil($pseudo, $mdp);
-				header('Location: Views/vue_connection.php');
+				require_once $rep.$vues["connection"];
 			}
 		}
 		catch(Exception $e) {
-			header('Location: Views/vue_inscription.php');
+			require_once $rep.$vues["inscription"];
+			$dVueErreur[] = $e;
+			require_once $rep.$vues["erreur"];
 		}
 	}
 }

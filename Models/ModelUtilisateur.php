@@ -7,14 +7,20 @@
  */
 class ModelUtilisateur
 {
+	private static $NB_PAR_PAGE = 10;
 
     /**
      * Création d'une Liste Privée
      * @param string $nom Nom de la nouvelle Liste
      * @param Utilisateur $user Utilisateur propriétaire de la Liste
      */
-	public static function creerListePrivee(string $nom, Utilisateur $user) {
-		$con = new Connection(Config::$dsn, Config::$usr, Config::$pass);
+	public static function creerListePrivee(string $nom, Utilisateur $user) 
+	{
+		global $dsn;
+    	global $pass;
+    	global $usr;
+
+		$con = new Connection($dsn, $usr, $pass);
 		$lg = new ListeGateway($con);
 
 		$lg->createListePrivee($nom, $user);
@@ -28,9 +34,13 @@ class ModelUtilisateur
      */
     public static function getListsPrivee(int $page, Utilisateur $user)
     {
-        $con = new Connection(Config::$dsn, Config::$usr, Config::$pass);
+        global $dsn;
+    	global $pass;
+    	global $usr;
+
+		$con = new Connection($dsn, $usr, $pass);
         $lg = new ListeGateway($con);
-        return $lg->getListsByPage($page, ModelVisiteur::$NB_PAR_PAGE, $user->getId());
+        return $lg->getListsByPage($page, self::$NB_PAR_PAGE, $user->getId());
     }
 
     /**
@@ -40,9 +50,13 @@ class ModelUtilisateur
      */
     public static function getNbPagesPrivees(Utilisateur $user)
     {
-        $con = new Connection(Config::$dsn, Config::$usr, Config::$pass);
+        global $dsn;
+    	global $pass;
+    	global $usr;
+
+		$con = new Connection($dsn, $usr, $pass);
         $lGateway = new ListeGateway($con);
-        return $lGateway->getNbPages(ModelVisiteur::$NB_PAR_PAGE, $user->getId());
+        return $lGateway->getNbPages(self::$NB_PAR_PAGE, $user->getId());
     }
 
     /**
@@ -55,9 +69,15 @@ class ModelUtilisateur
      */
 	public static function creerUtil(string $pseudo, string $mdp)
 	{
+		global $dsn;
+    	global $pass;
+    	global $usr;
+
+		$con = new Connection($dsn, $usr, $pass);
+
 		$pseudo = Nettoyer::NettoyerString($pseudo);
 		$mdp = Nettoyer::NettoyerString($mdp);
-		$gw = new UtilisateurGateway(new Connection(Config::$dsn, Config::$usr, Config::$pass));
+		$gw = new UtilisateurGateway($con);
 
         // Hashage du mot de passe avant sauvegarde en base
 		$hash =	password_hash($mdp, PASSWORD_DEFAULT);
@@ -79,9 +99,16 @@ class ModelUtilisateur
      */
 	public static function connection(string $pseudo, string $mdp)
 	{
+		global $dsn;
+    	global $pass;
+    	global $usr;
+
+		$con = new Connection($dsn, $usr, $pass);
+
 		$pseudo = Nettoyer::NettoyerString($pseudo);
 		$mdp = Nettoyer::NettoyerString($mdp);
-		$gw = new UtilisateurGateway(new Connection(Config::$dsn, Config::$usr, Config::$pass));
+		$gw = new UtilisateurGateway($con);
+
 		$hash = $gw->getMdpByPseudo($pseudo);
 
 		if(!isset($hash)) {
@@ -117,13 +144,19 @@ class ModelUtilisateur
      */
 	public static function isUser()
 	{
+		global $dsn;
+    	global $pass;
+    	global $usr;
+
+		$con = new Connection($dsn, $usr, $pass);
+		
 		if (isset($_SESSION['pseudo']) && isset($_SESSION['role']))
 		{
 			$pseudo = Nettoyer::NettoyerString($_SESSION['pseudo']);
 			$role = Nettoyer::NettoyerString($_SESSION['role']);
 			if($role=='user')
 			{
-				$gw = new UtilisateurGateway(new Connection(Config::$dsn, Config::$usr, Config::$pass));
+				$gw = new UtilisateurGateway($con);
 				return $gw->getUserByPseudo($pseudo);
 			}
 		}

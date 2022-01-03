@@ -17,7 +17,7 @@ class Tache
      * @param int|null $id ID de la Tâche (peut être créée avec un id NULL qui sera incrémenté dans la base)
      * @param int $checked 1 si la Tâche à été coché comme terminée, sinon 0
      */
-	public function __construct(string $title, string $desc, ?int $id=NULL, $checked=0)
+	public function __construct(string $title, string $desc, ?int $id=NULL, int $checked=0)
 	{
 		$this->id = $id;
 		$this->title = $title;
@@ -56,7 +56,7 @@ class Tache
      * Retourne l'état de la Tâche (1 si cochée comme terminée, 0 sinon)
      * @return int
      */
-	public function getChecked()
+	public function isChecked()
 	{
 		return $this->checked;
 	}

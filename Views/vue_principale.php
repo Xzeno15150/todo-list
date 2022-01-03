@@ -59,25 +59,17 @@
                 <?php 
                 }
                 else { 
-                    if ($liste->isChecked()) { ?>
-                        <a href="" class="btn btn-outline-dark border-0 rounded px-3">
-                            <s>
-                                <?php echo $liste->getNom()?>
-                            </s>
-                        </a>
-                    <?php }
-                    else { ?>
-                        <a href="" class="btn btn-outline-dark border-0 rounded px-3">
-                            <?php echo $liste->getNom()?>
-                        </a>
-                    <?php  
-                    }
+                    echo '<a href="index.php?action=afficherTaches&id='.$liste->getId().'" class="btn btn-outline-dark border-0 rounded px-3">';
+                    if ($liste->isChecked()) { echo '<s>';}
+                        echo $liste->getNom();
+                    if ($liste->isChecked()) { echo '</s>';}
+                    echo '</a>';
                 } ?>
             </div>
             <div class="col-auto m-1 p-0">
                 <div class="row d-flex align-items-center justify-content-end">
                     <h5 class="m-0 p-0 px-2">
-                        <a href="index.php?action=afficherListes&idEdit=<?php echo $liste->getId();?>">
+                        <a href="index.php?action=afficherListes&idEdit=<?php echo $liste->getId();?>&pagePrivee=<?php echo $pagePrivee ?>">
                             <i class="fas fa-pen text-info btn p-0 m-0" title="Modifier Liste"></i>
                         </a>
                     </h5>
@@ -152,26 +144,18 @@
                 <?php 
                 }
                 else { 
-                    if ($liste->isChecked()) { ?>
-                        <a href="" class="btn btn-outline-dark border-0 rounded px-3">
-                            <s>
-                                <?php echo $liste->getNom()?>
-                            </s>
-                        </a>
-                    <?php }
-                    else { ?>
-                        <a href="" class="btn btn-outline-dark border-0 rounded px-3">
-                            <?php echo $liste->getNom()?>
-                        </a>
-                    <?php  
-                    }
+                    echo '<a href="index.php?action=afficherTaches&id='.$liste->getId().'" class="btn btn-outline-dark border-0 rounded px-3">';
+                    if ($liste->isChecked()) { echo '<s>';}
+                        echo $liste->getNom();
+                    if ($liste->isChecked()) { echo '</s>';}
+                    echo '</a>';
                 } ?>
                 
             </div>
             <div class="col-auto m-1 p-0">
                 <div class="row d-flex align-items-center justify-content-end">
                     <h5 class="m-0 p-0 px-2">
-                        <a href="index.php?action=afficherListes&idEdit=<?php echo $liste->getId();?>">
+                        <a href="index.php?action=afficherListes&idEdit=<?php echo $liste->getId();?>&pagePublic=<?php echo $pagePublic?>">
                             <i class="fas fa-pen text-info btn p-0 m-0" title="Modifier Liste"></i>
                         </a>
                     </h5>

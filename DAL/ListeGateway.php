@@ -66,6 +66,7 @@ class ListeGateway
 		if ($iduser != NULL) {
 			$query = "SELECT * FROM Liste  WHERE idUtil = :idutil 
 					LIMIT :premierepage, :nbparpages";
+					
 			$this->con->executeQuery($query, array(
 				':idutil' => array($iduser, PDO::PARAM_INT),
 				':premierepage' => array($premierepage, PDO::PARAM_INT),
@@ -139,11 +140,12 @@ class ListeGateway
 			':id' => array($id, PDO::PARAM_INT)));
 
 		$res = $this->con->getResults();
-		if ($res[0] == NULL) {
-			return NULL;
+		foreach ($res as $row) {
+			if ($row == NULL) {
+				return NULL;
+			}
+			return new Liste($row['nom'], $row['id'], $row['checked'], $row['idUtil']);
 		}
-		$row = $res[0];
-		return new Liste($row['nom'], $row['id'], $row['checked'], $row['idUtil']);
 	}
 
     /**

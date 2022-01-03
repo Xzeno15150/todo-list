@@ -1,14 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: vigaillard2
- * Date: 17/11/21
- * Time: 13:10
- */
-class Config
-{
-    public static $dsn = 'mysql:host=berlin.iut.local;dbname=dbbamalvezin';
-    public static $usr = 'bamalvezin';
-    public static $pass = '1whT1wsy';
-}
 
+$dsn = 'mysql:host=berlin.iut.local;dbname=dbbamalvezin';
+$usr = 'bamalvezin';
+$pass = '1whT1wsy';
+
+$rep = __DIR__."/../";
+
+$vues["erreur"] = 'Views/vue_erreur.php';
+$vues["main"] = 'Views/vue_principale.php';
+$vues["header"] = 'Views/header.php';
+$vues["connection"] = 'Views/vue_connection.php';
+$vues["inscription"] = 'Views/vue_inscription.php';
+$vues["liste"] = 'Views/vue_liste.php';
