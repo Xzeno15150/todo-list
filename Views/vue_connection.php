@@ -27,9 +27,5 @@
 		</div>-->
 	  <button type="submit" class="btn btn-primary">Connection</button>
 	</form>
-
-	<?php if (isset($message)) {
-		echo $message;
-	} ?>
 </body>
 </html>

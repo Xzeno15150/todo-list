@@ -52,6 +52,9 @@ class VisiteurController
             case 'editTache' :
             	$this->editTache();
             	break;
+            case 'supTache':
+            	$this->supTache();
+            	break;
 
 
             // Actions sur le compte
@@ -135,6 +138,7 @@ class VisiteurController
 			$idListe = $id;
 		}
 		else{
+
 			$idListe = Nettoyer::NettoyerInt((int) $_GET['id']);
 		}
 		$liste = ModelVisiteur::getListeByID($idListe);
@@ -201,6 +205,20 @@ class VisiteurController
 
 	}
 
+	/**
+	 * Suppression d'une Tâche
+	 */
+	public function supTache()
+	{
+		if (isset($_GET['idt']) && isset($_GET['idl'])) 
+		{
+			$idTache = Nettoyer::NettoyerInt((int) $_GET['idt']);
+			ModelVisiteur::removeTache($idTache);
+			$idListe = Nettoyer::NettoyerInt((int) $_GET['idl']);
+			$this->afficherTaches($idListe);	
+		}
+	}
+
     /**
      * Se connecter à un compte Utilisateur
      *
@@ -217,13 +235,13 @@ class VisiteurController
 				$mdp = Nettoyer::NettoyerString($_POST['inputMDP']);
 
 				ModelUtilisateur::connection($pseudo, $mdp);
-				header('Location: index.php');
+				$this->afficherListes();
 			}
 		}
 		catch (Exception $e) {
-			require_once $rep.$vues["connection"];
-			$dVueErreur[] = $e;
-			require_once $rep.$vues["erreur"];
+			require $rep.$vues["connection"];
+			$dVueErreur[] = $e->getMessage();
+			require $rep.$vues["erreur"];
 		}
 		
 	}
@@ -290,7 +308,6 @@ class VisiteurController
 				ModelVisiteur::modifyTache($idt, $title, $desc);
 				$this->afficherTaches($idl);
 			}
-			echo "dfugh";
 		}
 		catch(Exception $e) {
 			$dVueErreur[] = $e;

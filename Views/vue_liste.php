@@ -62,8 +62,8 @@
 	                }
 	                else {
 	                    if ($tache->isChecked()) { echo '<s>';}
-	                        echo "<div class=\"border-1 bg-transparent rounded mr-3\">".$tache->getTitle()."</div>";
-	                        echo "<div class=\"border-1 bg-transparent rounded mr-3\">".$tache->getDesc()."</div>";
+	                        echo "<div class=\"border-1 bg-transparent rounded mr-3\"><u>".$tache->getTitle()."</u></div>";
+	                        echo "<div class=\"border-1 bg-transparent rounded mr-3\"><i>".$tache->getDesc()."</i></div>";
 	                    if ($tache->isChecked()) { echo '</s>';}
 	                } ?>
 	                
@@ -77,7 +77,7 @@
 	                        </a>
 	                    </h5>
 	                    <h5 class="m-0 p-0 px-2">
-	                        <a href="index.php?action=supTache&id=<?php echo $tache->getId();?>">
+	                        <a href="index.php?action=supTache&idt=<?php echo $tache->getId();?>&idl=<?php echo $liste->getId(); ?>">
 	                            <i class="fas fa-trash text-danger btn m-0 p-0" title="Effacer Liste"></i>
 	                        </a>
 	                    </h5>

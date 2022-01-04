@@ -141,6 +141,21 @@ class ModelVisiteur
 	}
 
 	/**
+	 * Supprimer la Tâche donnée
+	 * @param int $id ID de la Tâche
+	 */
+	public static function removeTache(int $id)
+	{
+		global $dsn;
+    	global $pass;
+    	global $usr;
+
+		$con = new Connection($dsn, $usr, $pass);
+		$tg = new TacheGateway($con);
+		$tg->deleteTacheById($id);
+	}
+
+	/**
 	 * Retourne la Liste demandée
 	 * @param int $idListe ID de la Liste
 	 * @return Liste Instance de la Liste
