@@ -69,7 +69,7 @@
             <div class="col-auto m-1 p-0">
                 <div class="row d-flex align-items-center justify-content-end">
                     <h5 class="m-0 p-0 px-2">
-                        <a href="index.php?action=afficherListes&idEdit=<?php echo $liste->getId();?>&pagePrivee=<?php echo $pagePrivee ?>">
+                        <a href="index.php?action=afficherListes&idEdit=<?php echo $liste->getId();?>&pagePrivee=<?php echo $pagePublic ?>">
                             <i class="fas fa-pen text-info btn p-0 m-0" title="Modifier Liste"></i>
                         </a>
                     </h5>

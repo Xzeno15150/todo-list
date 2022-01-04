@@ -124,6 +124,23 @@ class ModelVisiteur
 	}
 
 	/**
+	 * Modifier le nom et la description d'une Tâche
+	 * @param int $idt ID de la Tâche
+	 * @param string $title Nouveau titre de la Tâche
+	 * @param string $desc Nouvelle description de la Tâche
+	 */
+	public static function modifyTache(int $idt, string $title, string $desc)
+	{
+		global $dsn;
+    	global $pass;
+    	global $usr;
+
+		$con = new Connection($dsn, $usr, $pass);
+		$tg = new TacheGateway($con);
+		$tg->modifyTache($idt, $title, $desc);
+	}
+
+	/**
 	 * Retourne la Liste demandée
 	 * @param int $idListe ID de la Liste
 	 * @return Liste Instance de la Liste

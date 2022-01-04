@@ -51,10 +51,11 @@
 	            <div class="col px-1 m-1 ml-3 d-flex align-items-center">
 	                <?php 
 	                if (isset($idEdit) && $tache->getId() == $idEdit) {?>
-	                    <form action="index.php?action=editListe" method="post">
-	                        <input type="text" name="editTacheTitle" placeholder="Ancien titre : <?php echo $tache->getNom(); ?>" required>
-	                        <input type="text" name="editTacheDesc" placeholder="Ancienne description : <?php echo $tache->getNom(); ?>" required>
-	                        <input type="text" name="idEdit" hidden value="<?php echo $liste->getId();?>">
+
+	                    <form action="index.php?action=editTache&idl=<?php echo $liste->getId(); ?>" method="post">
+	                        <input type="text" name="editTacheTitle" placeholder="Ancien titre : <?php echo $tache->getTitle(); ?>" required>
+	                        <input type="text" name="editTacheDesc" placeholder="Ancienne description : <?php echo $tache->getDesc(); ?>" required>
+	                        <input type="text" name="idEdit" hidden value="<?php echo $tache->getId();?>">
 	                        <input type="submit" class="btn btn-success" name="editTache" value="Modifier">
 	                    </form>
 	                <?php 
@@ -71,7 +72,7 @@
 	            <div class="col-auto m-1 p-0">
 	                <div class="row d-flex align-items-center justify-content-end">
 	                    <h5 class="m-0 p-0 px-2">
-	                        <a href="index.php?action=afficherTaches&idEdit=<?php echo $tache->getId();?>&page=<?php echo $page;?>">
+	                        <a href="index.php?action=afficherTaches&idEdit=<?php echo $tache->getId();?>&page=<?php echo $page;?>&id=<?php echo $liste->getId(); ?>">
 	                            <i class="fas fa-pen text-info btn p-0 m-0" title="Modifier Liste"></i>
 	                        </a>
 	                    </h5>

@@ -103,4 +103,20 @@ class TacheGateway
 
 		return ($ret != null) ? $ret : 0; 
 	}
+
+	/**
+	 * Modifie le nom et la description de la Tâche en base
+	 * @param int $id ID de la Tâche à modifier
+	 * @param string $title Nouveau titre de la Tâche
+	 * @param string $desc Nouvelle description 
+	 * @return bool Retourne 'true' si ça à fonctionner, 'false' sinon
+	 */
+	public function modifyTache(int $id, string $title, string $desc)
+	{	
+		$query = "UPDATE Tache SET title = :title, descT = :descT WHERE id = :id";
+		return $this->con->executeQuery($query, array(
+			":title" => array($title, PDO::PARAM_STR),
+			":descT" => array($desc, PDO::PARAM_STR),
+			":id" => array($id, PDO::PARAM_INT)));
+	}
 }

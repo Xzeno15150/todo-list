@@ -49,6 +49,9 @@ class VisiteurController
             case 'checkTache':
             	$this->checkTache();
                 break;
+            case 'editTache' :
+            	$this->editTache();
+            	break;
 
 
             // Actions sur le compte
@@ -139,9 +142,15 @@ class VisiteurController
 		if (isset($_GET['page'])) {
 			$page = Nettoyer::NettoyerInt((int) $_GET['page']);
 		}
+
+
 		$nbpages = ModelVisiteur::getNbPagesTaches($idListe);
 		$page = Validation::validationPage($page, $nbpages);
 		$lesTaches = ModelVisiteur::getTaches($page, $idListe);
+
+		if (isset($_GET['idEdit'])) {
+			$idEdit = Nettoyer::NettoyerInt((int) $_GET['idEdit']);
+		}
 
 		require_once $rep.$vues["header"];
 		require_once $rep.$vues['liste'];
@@ -235,6 +244,9 @@ class VisiteurController
 		}
 	}
 
+	/**
+	 * Changer l'état de la Tâche
+	 */
 	public function checkTache()
 	{
 		if (isset($_GET['id']) && isset($_GET['idt'])) {
@@ -256,6 +268,33 @@ class VisiteurController
 
 			ModelVisiteur::modifyListe($idListe, $nomListe);
 			$this->afficherListes();
+		}
+	}
+
+	/**
+	 * Changer le nom et la description de la Tâche
+	 */
+	public function editTache()
+	{
+		try{
+			if (isset($_POST['idEdit']) 
+					&& isset($_POST['editTacheTitle'])
+					&& isset($_POST['editTacheDesc'])
+					&& isset($_GET['idl'])) 
+			{
+				$idt = Nettoyer::NettoyerInt((int) $_POST['idEdit']);
+				$title = Nettoyer::NettoyerString($_POST['editTacheTitle']);
+				$desc = Nettoyer::NettoyerString($_POST['editTacheDesc']);
+				$idl = Nettoyer::NettoyerInt((int) $_GET['idl']);
+				
+				ModelVisiteur::modifyTache($idt, $title, $desc);
+				$this->afficherTaches($idl);
+			}
+			echo "dfugh";
+		}
+		catch(Exception $e) {
+			$dVueErreur[] = $e;
+			require_once $rep.$vues["erreur"];
 		}
 	}
 
