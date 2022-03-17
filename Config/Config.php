@@ -1,8 +1,8 @@
 <?php
 
-$dsn = 'mysql:host=berlin.iut.local;dbname=dbbamalvezin';
-$usr = 'bamalvezin';
-$pass = '1whT1wsy';
+$dsn = '';
+$usr = '';
+$pass = '';
 
 $rep = __DIR__."/../";
 
